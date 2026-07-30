@@ -1,26 +1,205 @@
 @import "tailwindcss";
 
+/* ---- "Yö ja messinki" design tokens (koomikkotaikuri design system) ---- */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* base palette */
+  --kt-yo: #131a26; /* night navy — page base */
+  --kt-paneeli: #1e2838; /* panel / card surface */
+  --kt-viiva: #313c4e; /* hairline rules and dividers */
+  --kt-muste: #0b0f16; /* deepest ink — footer, edge bands */
+  --kt-messinki: #e3b23c; /* brass — the one accent, CTAs and accented headline line */
+  --kt-messinki-syva: #c4922a; /* deep brass — hover / press */
+  --kt-messinki-hehku: #3a3018; /* dark brass tint — quiet highlight fills on navy */
+  --kt-valo: #f2eada; /* cream — headline and light surface */
+  --kt-valo-himmea: #c6bca8; /* dimmed cream — body copy on navy */
+  --kt-siniharmaa: #9aa7bc; /* blue grey — kickers, meta, captions */
+  --kt-sammal: #7fb08c; /* moss — success only */
+  --kt-tiili: #e4685c; /* brick — errors only */
+
+  /* semantic */
+  --kt-surface-page: var(--kt-yo);
+  --kt-surface-panel: var(--kt-paneeli);
+  --kt-surface-band: var(--kt-muste);
+  --kt-surface-light: var(--kt-valo);
+  --kt-surface-highlight: var(--kt-messinki-hehku);
+  --kt-text-heading: var(--kt-valo);
+  --kt-text-body: var(--kt-valo-himmea);
+  --kt-text-muted: var(--kt-siniharmaa);
+  --kt-text-accent: var(--kt-messinki);
+  --kt-text-on-accent: var(--kt-yo);
+  --kt-text-on-light: var(--kt-muste);
+  --kt-action-primary: var(--kt-messinki);
+  --kt-action-primary-hover: var(--kt-messinki-syva);
+  --kt-border-default: var(--kt-viiva);
+  --kt-border-strong: var(--kt-valo);
+  --kt-border-selected: var(--kt-messinki);
+  --kt-focus-ring: var(--kt-messinki);
+  --kt-success: var(--kt-sammal);
+  --kt-error: var(--kt-tiili);
+  --kt-link: var(--kt-messinki);
+  --kt-link-hover: var(--kt-valo);
+
+  /* type */
+  --kt-font-display: var(--font-anton), "Archivo", "Helvetica Neue", Impact, sans-serif;
+  --kt-font-body: var(--font-archivo), "Helvetica Neue", system-ui, sans-serif;
+  --kt-font-mono: var(--font-plex-mono), "Courier New", monospace;
+  --kt-text-xs: 11px;
+  --kt-text-sm: 13px;
+  --kt-text-base: 16px;
+  --kt-text-md: 20px;
+  --kt-text-lg: 26px;
+  --kt-text-xl: 34px;
+  --kt-text-2xl: 46px;
+  --kt-text-3xl: 62px;
+  --kt-text-4xl: 88px;
+  --kt-weight-regular: 400;
+  --kt-weight-medium: 500;
+  --kt-weight-semibold: 600;
+  --kt-weight-bold: 700;
+  --kt-leading-poster: 1.25;
+  --kt-leading-snug: 1.25;
+  --kt-leading-body: 1.6;
+  --kt-tracking-display: -0.01em;
+  --kt-tracking-caps: 0.2em;
+  --kt-tracking-label: 0.14em;
+  --kt-measure: 560px;
+
+  /* spacing */
+  --kt-space-1: 4px;
+  --kt-space-2: 8px;
+  --kt-space-3: 12px;
+  --kt-space-4: 16px;
+  --kt-space-5: 24px;
+  --kt-space-6: 32px;
+  --kt-space-7: 48px;
+  --kt-space-8: 64px;
+  --kt-space-9: 96px;
+
+  /* shape */
+  --kt-radius-none: 0px;
+  --kt-radius-sm: 2px;
+  --kt-radius-full: 9999px;
+  --kt-border-thin: 1px;
+  --kt-border-emphasis: 2px;
+  --kt-border-band: 6px;
+  --kt-perf-size: 13px;
+
+  /* motion */
+  --kt-ease: cubic-bezier(0.2, 0, 0, 1);
+  --kt-duration-fast: 120ms;
+  --kt-duration-base: 220ms;
+  --kt-duration-marquee: 42s;
+
+  /* component: button */
+  --kt-btn-primary-bg: var(--kt-messinki);
+  --kt-btn-primary-text: var(--kt-yo);
+  --kt-btn-primary-bg-hover: var(--kt-messinki-syva);
+  --kt-btn-secondary-bg: transparent;
+  --kt-btn-secondary-text: var(--kt-valo);
+  --kt-btn-secondary-border: var(--kt-valo);
+  --kt-btn-secondary-bg-hover: var(--kt-valo);
+  --kt-btn-secondary-text-hover: var(--kt-muste);
+  --kt-btn-radius: 2px;
+
+  /* component: badge */
+  --kt-badge-bg: var(--kt-messinki-hehku);
+  --kt-badge-text: var(--kt-messinki);
+  --kt-badge-border: var(--kt-messinki);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+* {
+  box-sizing: border-box;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--kt-yo);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--kt-font-body);
+  color: var(--kt-valo-himmea);
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--kt-font-display);
+  font-weight: 400;
+  text-transform: uppercase;
+  color: var(--kt-text-heading);
+  letter-spacing: var(--kt-tracking-display);
+  line-height: var(--kt-leading-poster);
+  margin: 0;
+}
+
+a {
+  color: var(--kt-messinki);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--kt-valo);
+}
+
+::selection {
+  background: var(--kt-messinki);
+  color: var(--kt-yo);
+}
+
+:focus-visible {
+  outline: 2px solid var(--kt-focus-ring);
+  outline-offset: 2px;
+}
+
+@keyframes kt-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes kt-quote-fade {
+  0% {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  2% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.kt-nav-link {
+  font-size: var(--kt-text-xs);
+  font-weight: 500;
+  letter-spacing: var(--kt-tracking-caps);
+  text-transform: uppercase;
+  color: var(--kt-siniharmaa);
+  transition: color var(--kt-duration-fast) var(--kt-ease);
+}
+
+.kt-nav-link:hover,
+.kt-nav-link.is-active {
+  color: var(--kt-valo);
+}
+
+.kt-footer-link {
+  font-size: var(--kt-text-xs);
+  font-weight: 500;
+  letter-spacing: var(--kt-tracking-caps);
+  text-transform: uppercase;
+  color: var(--kt-siniharmaa);
+  transition: color var(--kt-duration-fast) var(--kt-ease);
+}
+
+.kt-footer-link:hover {
+  color: var(--kt-valo);
 }
