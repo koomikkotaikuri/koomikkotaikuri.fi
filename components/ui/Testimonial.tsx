@@ -24,7 +24,7 @@ export function Testimonial({
           fontFamily: "var(--kt-font-display)",
           fontWeight: 400,
           textTransform: "uppercase",
-          fontSize: 34,
+          fontSize: "clamp(24px, 5.5vw, 34px)",
           lineHeight: "var(--kt-leading-poster)",
           letterSpacing: "var(--kt-tracking-display)",
           color: "var(--kt-text-heading)",
@@ -35,6 +35,7 @@ export function Testimonial({
       <figcaption
         style={{
           display: "flex",
+          flexWrap: "wrap",
           alignItems: "baseline",
           gap: 8,
           fontSize: 11,

@@ -7,7 +7,8 @@ export function Stat({
   label: string;
   size?: "sm" | "md" | "lg";
 }) {
-  const fontSize = size === "lg" ? 62 : size === "sm" ? 30 : 46;
+  const fontSize =
+    size === "lg" ? "clamp(40px, 10vw, 62px)" : size === "sm" ? 30 : "clamp(34px, 8vw, 46px)";
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 8, fontFamily: "var(--kt-font-body)" }}>
       <div

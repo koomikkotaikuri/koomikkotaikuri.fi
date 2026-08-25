@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Anton, Archivo, IBM_Plex_Mono } from "next/font/google";
+import { Tarjouslomake } from "@/components/site/Tarjouslomake";
 import "./globals.css";
 
 const anton = Anton({
@@ -35,7 +36,10 @@ export default function RootLayout({
       lang="fi"
       className={`${anton.variable} ${archivo.variable} ${plexMono.variable}`}
     >
-      <body>{children}</body>
+      <body>
+        {children}
+        <Tarjouslomake />
+      </body>
     </html>
   );
 }

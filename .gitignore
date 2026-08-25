@@ -36,6 +36,15 @@ yarn-error.log*
 # vercel
 .vercel
 
+# full-resolution source assets (kept locally, not deployed)
+/originals
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# macOS/iCloud duplicate copies ("kuva 2.webp") - never referenced by the site
+* 2.*
+
+# machine-local Claude Code settings
+.claude/settings.local.json

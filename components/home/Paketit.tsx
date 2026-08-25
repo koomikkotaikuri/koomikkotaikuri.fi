@@ -1,10 +1,10 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { Rule } from "@/components/ui/Rule";
 import { Badge } from "@/components/ui/Badge";
-import { ImagePlaceholder } from "@/components/ui/ImagePlaceholder";
-import { scrollToId } from "@/lib/scrollTo";
+import { openTarjous } from "@/lib/tarjous";
 
 type Pkg = {
   id: number;
@@ -13,9 +13,13 @@ type Pkg = {
   short: string;
   long: string;
   cta: string;
+  img: string;
+  imgAlt: string;
+  video?: string;
   badge?: boolean;
   wide?: boolean;
   scrollTarget?: string;
+  href?: string;
 };
 
 const packages: Pkg[] = [
@@ -26,6 +30,10 @@ const packages: Pkg[] = [
     short: "Stand up ja taikuutta koko salille.",
     long: "Stand upia ja taikuutta lavalta, noin 30–40 minuuttia. Koko sali nauraa yhtä aikaa — myös ne, jotka istuvat takarivissä kädet puuskassa.",
     cta: "Katso lisää →",
+    img: "/images/lava-esitys-yleiso-06.webp",
+    imgAlt: "JP Pirinen lavalla, mikki päässä",
+    video: "/videos/lavalla-pysty-video-720p.mp4",
+    href: "/palvelut#kt-p1",
   },
   {
     id: 1,
@@ -34,6 +42,9 @@ const packages: Pkg[] = [
     short: "Kiertävä close-up-taikuus pöydissä.",
     long: "Kiertävä close-up-taikuus pöydissä ja vieraiden keskellä, 30–60 minuuttia. Ihmeet tapahtuvat käden ulottuvilla, keskellä omaa seuruetta.",
     cta: "Katso lisää →",
+    img: "/images/toiminta-korttiheitto-02-web.webp",
+    imgAlt: "Close-up-taikuutta käden ulottuvilla",
+    href: "/palvelut#kt-p2",
   },
   {
     id: 2,
@@ -42,6 +53,8 @@ const packages: Pkg[] = [
     short: "Lavashow ja close-up samassa illassa.",
     long: "Lavashow ja close-up samassa illassa. Tilaat kerran, ja koko illan viihde on hoidettu — sinä ehdit itsekin nauttia omista juhlistasi.",
     cta: "Pyydä tarjous →",
+    img: "/images/lava-esitys-yleiso-08.webp",
+    imgAlt: "Koko illan show käynnissä",
     badge: true,
     scrollTarget: "kt-cta-band",
   },
@@ -52,7 +65,10 @@ const packages: Pkg[] = [
     short: "Illan juontaja, joka pitää aikataulun kasassa.",
     long: "Juonnan illan alusta loppuun ja pidän aikataulun kasassa. Ohjelmanumerot, palkitsemiset ja tauot kulkevat sujuvasti, ja tunnelma pysyy yllä myös väliaikoina.",
     cta: "Katso lisää →",
+    img: "/images/lava-esitys-yleiso-01.webp",
+    imgAlt: "JP Pirinen juontaa lavalla",
     wide: true,
+    href: "/palvelut#kt-p4",
   },
   {
     id: 4,
@@ -61,7 +77,10 @@ const packages: Pkg[] = [
     short: "Puheenvuoro tai workshop päivän teemaan.",
     long: "Puheenvuoro tai workshop koulutuspäivään ja seminaariin. Aiheina esiintyminen, huomion ohjaaminen ja heittäytyminen. Harjoituksia ja nauruja, ei luentokalvoja.",
     cta: "Katso lisää →",
+    img: "/images/lifestyle-olohuone-04-web.webp",
+    imgAlt: "Workshop-tunnelmaa pöydän ääressä",
     wide: true,
+    href: "/palvelut#kt-p5",
   },
 ];
 
@@ -69,7 +88,7 @@ export function Paketit() {
   const [hovered, setHovered] = useState<number | null>(null);
 
   return (
-    <section style={{ padding: "96px 48px", maxWidth: 1280, margin: "0 auto" }}>
+    <section className="kt-m-pad" style={{ padding: "96px 48px", maxWidth: 1280, margin: "0 auto" }}>
       <Rule left="MITEN SE TOIMII" right="Viisi tapaa tilata" />
       <h2
         style={{
@@ -97,6 +116,7 @@ export function Paketit() {
         kerromme tarjouksessa, kun tiedämme mitä olette järjestämässä.
       </p>
       <div
+        className="kt-m-gap-sm"
         style={{
           display: "grid",
           gridTemplateColumns: "repeat(6, minmax(0, 1fr))",
@@ -111,8 +131,14 @@ export function Paketit() {
           return (
             <div
               key={pkg.id}
+              className="kt-pkg-card"
               onMouseEnter={() => setHovered(pkg.id)}
               onMouseLeave={() => setHovered(null)}
+              onClick={() => {
+                if (window.matchMedia("(hover: none)").matches) {
+                  setHovered(isHovered ? null : pkg.id);
+                }
+              }}
               style={{
                 position: "relative",
                 overflow: "hidden",
@@ -139,7 +165,32 @@ export function Paketit() {
                   <Badge variant="brass">Suosituin</Badge>
                 </div>
               )}
-              <ImagePlaceholder label="Kuva tai video paketista" />
+              {pkg.video ? (
+                <video
+                  src={pkg.video}
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  preload="metadata"
+                  aria-label={pkg.imgAlt}
+                  style={{
+                    position: "absolute",
+                    inset: 0,
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover",
+                  }}
+                />
+              ) : (
+                <Image
+                  src={pkg.img}
+                  alt={pkg.imgAlt}
+                  fill
+                  sizes="(max-width: 1280px) 50vw, 640px"
+                  style={{ objectFit: "cover" }}
+                />
+              )}
               <div
                 style={{
                   position: "absolute",
@@ -192,11 +243,11 @@ export function Paketit() {
                     {pkg.long}
                   </p>
                   <a
-                    href={pkg.scrollTarget ? undefined : "#"}
+                    href={pkg.scrollTarget ? "#tarjous" : pkg.href}
                     onClick={(e) => {
                       if (pkg.scrollTarget) {
                         e.preventDefault();
-                        scrollToId(pkg.scrollTarget);
+                        openTarjous();
                       }
                     }}
                     style={{

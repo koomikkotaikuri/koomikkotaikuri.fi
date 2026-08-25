@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { openTarjous } from "@/lib/tarjous";
 
 export function TicketCTA({
   label = "Pyydä tarjous",
@@ -17,7 +18,7 @@ export function TicketCTA({
   const brass = hover ? "var(--kt-action-primary-hover)" : "var(--kt-action-primary)";
   return (
     <button
-      onClick={onClick}
+      onClick={onClick ?? openTarjous}
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
       style={{

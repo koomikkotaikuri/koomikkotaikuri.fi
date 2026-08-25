@@ -1,11 +1,11 @@
 import { Rule } from "@/components/ui/Rule";
 import { Stat } from "@/components/ui/Stat";
 import { Testimonial } from "@/components/ui/Testimonial";
+import { LogoWall } from "@/components/site/LogoWall";
 
 const stats = [
   { value: "28+", label: "vuotta lavalla" },
   { value: "1500+", label: "tapahtumaa" },
-  { value: "50–100", label: "keikkaa vuodessa" },
 ];
 
 const testimonials = [
@@ -23,19 +23,10 @@ const testimonials = [
   },
 ];
 
-const proofClients = [
-  "Kouvolan kaupunki",
-  "NCC",
-  "Orange Advertising",
-  "HOAS",
-  "Hämeen Kauppakamari",
-  "Lemminkäinen",
-  "Piikkiön VPK",
-];
-
 export function Naytot() {
   return (
     <section
+      className="kt-m-pad"
       style={{
         background: "var(--kt-muste)",
         borderTop: "1px solid var(--kt-viiva)",
@@ -49,7 +40,7 @@ export function Naytot() {
         <div
           style={{
             display: "grid",
-            gridTemplateColumns: "1fr 1fr 1fr",
+            gridTemplateColumns: "1fr 1fr",
             gap: 24,
             margin: "56px 0 72px 0",
           }}
@@ -60,6 +51,7 @@ export function Naytot() {
         </div>
 
         <div
+          className="kt-m-stack"
           style={{
             display: "grid",
             gridTemplateColumns: "1fr 1fr",
@@ -72,41 +64,26 @@ export function Naytot() {
           ))}
         </div>
 
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(7, 1fr)",
-            gap: 16,
-            marginBottom: 48,
-          }}
-        >
-          {proofClients.map((client) => (
-            <div
-              key={client}
-              style={{
-                border: "1px dashed var(--kt-viiva)",
-                minHeight: 72,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                textAlign: "center",
-                padding: 12,
-              }}
-            >
+        <div style={{ padding: "8px 0 12px 0", marginBottom: 48 }}>
+          <LogoWall
+            tail={
               <span
                 style={{
                   fontFamily: "var(--kt-font-mono)",
-                  fontSize: 10,
+                  fontSize: 12,
                   letterSpacing: "0.14em",
                   textTransform: "uppercase",
                   color: "var(--kt-siniharmaa)",
+                  textAlign: "center",
                   lineHeight: 1.5,
                 }}
               >
-                LOGO PLACEHOLDER: {client}
+                ja 1500+
+                <br />
+                muuta tilaisuutta
               </span>
-            </div>
-          ))}
+            }
+          />
         </div>
 
         <div

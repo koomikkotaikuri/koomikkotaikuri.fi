@@ -1,14 +1,17 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { scrollToId } from "@/lib/scrollTo";
+import { openTarjous } from "@/lib/tarjous";
+import { VideoModal } from "@/components/site/VideoModal";
+
+const PROMO_VIDEO_ID = "dQCFbs_GC38";
 
 export function Hero() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const markRowRef = useRef<HTMLSpanElement>(null);
   const taglineRef = useRef<HTMLSpanElement>(null);
   const tagBaseSize = useRef<number | null>(null);
-  const [soundOn, setSoundOn] = useState(false);
+  const [videoOpen, setVideoOpen] = useState(false);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -45,15 +48,14 @@ export function Hero() {
     };
   }, []);
 
-  const toggleSound = () => {
+  /* Taustavideo pysäytetään promovideon ajaksi ja käynnistetään taas kun
+     lightbox suljetaan. */
+  useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
-    const on = !soundOn;
-    video.muted = !on;
-    if (on) video.currentTime = 0;
-    video.play().catch(() => {});
-    setSoundOn(on);
-  };
+    if (videoOpen) video.pause();
+    else video.play().catch(() => {});
+  }, [videoOpen]);
 
   return (
     <section
@@ -73,6 +75,7 @@ export function Hero() {
         playsInline
         autoPlay
         muted
+        className="kt-hero-video"
         style={{
           position: "absolute",
           top: 0,
@@ -84,6 +87,7 @@ export function Hero() {
         }}
       />
       <div
+        className="kt-hero-shade"
         style={{
           position: "absolute",
           inset: 0,
@@ -104,6 +108,7 @@ export function Hero() {
         }}
       />
       <div
+        className="kt-hero-inner"
         style={{
           position: "relative",
           zIndex: 2,
@@ -130,7 +135,7 @@ export function Hero() {
             fontWeight: 400,
             textTransform: "uppercase",
             color: "var(--kt-valo)",
-            fontSize: "clamp(52px, 7vw, 118px)",
+            fontSize: "min(clamp(52px, 7vw, 118px), 11.6vw)",
             lineHeight: 1.08,
             letterSpacing: "-0.01em",
           }}
@@ -161,9 +166,9 @@ export function Hero() {
             KAKSI SUUNTAA, <span style={{ color: "var(--kt-messinki)" }}>YKSI KOKONAISUUS</span>
           </span>
         </div>
-        <div style={{ display: "flex", gap: 16, marginTop: 48 }}>
+        <div style={{ display: "flex", flexWrap: "wrap", gap: 16, marginTop: 48 }}>
           <button
-            onClick={toggleSound}
+            onClick={() => setVideoOpen(true)}
             style={{
               fontFamily: "var(--kt-font-body)",
               fontWeight: 700,
@@ -187,10 +192,10 @@ export function Hero() {
               e.currentTarget.style.color = "var(--kt-valo)";
             }}
           >
-            {soundOn ? "Mykistä video" : "Katso video"}
+            Katso video
           </button>
           <button
-            onClick={() => scrollToId("kt-cta-band")}
+            onClick={openTarjous}
             style={{
               fontFamily: "var(--kt-font-body)",
               fontWeight: 700,
@@ -216,6 +221,12 @@ export function Hero() {
           </button>
         </div>
       </div>
+      <VideoModal
+        open={videoOpen}
+        onClose={() => setVideoOpen(false)}
+        videoId={PROMO_VIDEO_ID}
+        title="Koomikkotaikuri – promovideo"
+      />
     </section>
   );
 }
