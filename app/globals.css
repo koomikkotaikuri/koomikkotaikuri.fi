@@ -116,6 +116,7 @@ body {
   margin: 0;
   padding: 0;
   background: var(--kt-yo);
+  overflow-x: clip;
 }
 
 body {
@@ -177,6 +178,92 @@ a:hover {
   }
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
+[id] {
+  scroll-margin-top: 96px;
+}
+
+.kt-btn-primary {
+  display: inline-block;
+  font-family: var(--kt-font-body);
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: var(--kt-tracking-label);
+  text-transform: uppercase;
+  background: var(--kt-messinki);
+  color: var(--kt-yo);
+  border: none;
+  border-radius: 2px;
+  padding: 16px 32px;
+  cursor: pointer;
+  transition: background var(--kt-duration-fast) var(--kt-ease);
+}
+
+.kt-btn-primary:hover {
+  background: var(--kt-messinki-syva);
+  color: var(--kt-yo);
+}
+
+.kt-btn-primary:disabled {
+  opacity: 0.55;
+  cursor: default;
+}
+
+/* Estää hover-värin vaihtumisen kun nappi ei ole käytettävissä. */
+.kt-btn-primary:disabled:hover {
+  background: var(--kt-messinki);
+}
+
+.kt-btn-secondary {
+  display: inline-block;
+  font-family: var(--kt-font-body);
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: var(--kt-tracking-label);
+  text-transform: uppercase;
+  background: transparent;
+  color: var(--kt-valo);
+  border: 1px solid var(--kt-valo);
+  border-radius: 2px;
+  padding: 16px 32px;
+  cursor: pointer;
+  transition: all var(--kt-duration-fast) var(--kt-ease);
+}
+
+.kt-btn-secondary:hover {
+  background: var(--kt-valo);
+  color: var(--kt-muste);
+}
+
+.kt-cta-link {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: var(--kt-tracking-label);
+  text-transform: uppercase;
+  color: var(--kt-messinki);
+}
+
+.kt-chip {
+  font-family: var(--kt-font-mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--kt-siniharmaa);
+  border: 1px solid var(--kt-viiva);
+  border-radius: 2px;
+  padding: 10px 16px;
+  transition: all var(--kt-duration-fast) var(--kt-ease);
+}
+
+.kt-chip:hover {
+  color: var(--kt-yo);
+  background: var(--kt-messinki);
+  border-color: var(--kt-messinki);
+}
+
 .kt-nav-link {
   font-size: var(--kt-text-xs);
   font-weight: 500;
@@ -202,4 +289,120 @@ a:hover {
 
 .kt-footer-link:hover {
   color: var(--kt-valo);
+}
+
+/* ---- Mobile navigation ---- */
+.kt-nav-burger {
+  display: none;
+}
+
+@media (max-width: 959px) {
+  .kt-nav {
+    padding: 0 20px !important;
+  }
+  .kt-nav-desktop {
+    display: none !important;
+  }
+  .kt-nav-burger {
+    display: flex;
+  }
+}
+
+/* ---- Mobile layout overrides ----
+   Inline styles carry the desktop values; these classes override them
+   below the breakpoint, hence the !important. */
+@media (max-width: 767px) {
+  .kt-m-stack {
+    grid-template-columns: 1fr !important;
+  }
+  .kt-m-cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+  .kt-m-pad {
+    padding: 64px 20px !important;
+  }
+  .kt-m-pad-hero {
+    padding: 128px 20px 56px 20px !important;
+  }
+  .kt-m-pad-sm {
+    padding: 24px !important;
+  }
+  .kt-m-pad-x {
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+  }
+  .kt-m-gap-sm {
+    gap: 32px !important;
+  }
+  .kt-m-gap-xs {
+    gap: 6px !important;
+  }
+  .kt-m-static {
+    position: static !important;
+  }
+  .kt-m-hide {
+    display: none !important;
+  }
+  .kt-m-full {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  .kt-hero-inner {
+    max-width: 100% !important;
+    padding: 128px 20px 72px 20px !important;
+  }
+  .kt-hero-video {
+    width: 100% !important;
+  }
+  .kt-hero-shade {
+    background: linear-gradient(
+      180deg,
+      rgba(19, 26, 38, 0.8) 0%,
+      rgba(19, 26, 38, 0.55) 45%,
+      rgba(19, 26, 38, 0.3) 70%,
+      rgba(19, 26, 38, 0.6) 100%
+    ) !important;
+  }
+  /* longhands on purpose: the grid-column shorthand gets dropped in the CSS build */
+  .kt-pkg-card {
+    grid-column-start: 1 !important;
+    grid-column-end: -1 !important;
+  }
+  .kt-m-only {
+    display: block !important;
+  }
+  /* clearance for the bottom-pinned CTA bar */
+  footer {
+    padding-bottom: 104px !important;
+  }
+  .kt-quote-track {
+    scrollbar-width: none;
+  }
+  .kt-quote-track::-webkit-scrollbar {
+    display: none;
+  }
+  .kt-lomake-rail {
+    display: none !important;
+  }
+  .kt-lomake-main {
+    border-right: 1px solid var(--kt-viiva) !important;
+  }
+  .kt-lomake-head {
+    padding: 20px 20px 0 20px !important;
+  }
+  .kt-lomake-body {
+    padding: 16px 20px 24px 20px !important;
+  }
+  .kt-jump-chips {
+    flex-wrap: nowrap !important;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .kt-jump-chips::-webkit-scrollbar {
+    display: none;
+  }
+  .kt-jump-chips .kt-chip {
+    flex: none;
+    white-space: nowrap;
+  }
 }
