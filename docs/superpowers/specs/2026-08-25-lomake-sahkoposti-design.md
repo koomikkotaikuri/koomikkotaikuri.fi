@@ -131,7 +131,7 @@ eikä asiakkaan pidä lähettää pyyntöä uudestaan. Tämä on myös vaiheen 1
 | Muuttuja | Vaihe 1 | Vaihe 2 |
 |----------|---------|---------|
 | `RESEND_API_KEY` | Resendin API-avain | sama |
-| `TARJOUS_LAHETTAJA` | `Koomikkotaikuri <onboarding@resend.dev>` | `Koomikkotaikuri <lomake@koomikkotaikuri.fi>` |
+| `TARJOUS_LAHETTAJA` | `Lomake - Koomikkotaikuri <onboarding@resend.dev>` | `Lomake - Koomikkotaikuri <lomake@koomikkotaikuri.fi>` |
 | `TARJOUS_KUITTAUS` | asettamatta | `on` |
 
 Vastaanottaja `jp@koomikkotaikuri.fi` on koodissa vakiona — se esiintyy jo muutenkin

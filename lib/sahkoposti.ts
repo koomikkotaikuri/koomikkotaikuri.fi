@@ -9,7 +9,7 @@ export type Tarjouspyynto = {
 };
 
 const VASTAANOTTAJA = "jp@koomikkotaikuri.fi";
-const OLETUSLAHETTAJA = "Koomikkotaikuri <onboarding@resend.dev>";
+const OLETUSLAHETTAJA = "Lomake - Koomikkotaikuri <onboarding@resend.dev>";
 
 /* Avain luetaan kutsuhetkellä, ei moduulin latautuessa: muuten pelkkä
    tuonti kaataisi sivuston silloin kun ympäristömuuttuja puuttuu. */

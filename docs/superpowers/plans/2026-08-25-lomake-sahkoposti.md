@@ -84,7 +84,7 @@ export type Tarjouspyynto = {
 };
 
 const VASTAANOTTAJA = "jp@koomikkotaikuri.fi";
-const OLETUSLAHETTAJA = "Koomikkotaikuri <onboarding@resend.dev>";
+const OLETUSLAHETTAJA = "Lomake - Koomikkotaikuri <onboarding@resend.dev>";
 
 function asiakas(): Resend {
   const avain = process.env.RESEND_API_KEY;
@@ -623,7 +623,7 @@ Projektin `koomikkotaikuri.fi` asetuksista, kohta Settings → Environment Varia
 | Nimi | Arvo |
 |------|------|
 | `RESEND_API_KEY` | sama avain kuin `.env.local`-tiedostossa |
-| `TARJOUS_LAHETTAJA` | `Koomikkotaikuri <onboarding@resend.dev>` |
+| `TARJOUS_LAHETTAJA` | `Lomake - Koomikkotaikuri <onboarding@resend.dev>` |
 | `TARJOUS_KUITTAUS` | jätä lisäämättä |
 
 - [ ] **Step 2: Työnnä muutokset**
@@ -645,7 +645,7 @@ Jos lähetys epäonnistuu, katso Vercelin runtime-lokeista `console.error`-rivi 
 Kun domain siirretään ja DNS on hallinnassa:
 
 1. Resendissä Domains → lisää `koomikkotaikuri.fi` → kopioi DKIM- ja SPF-tietueet DNS-hallintaan → odota verifiointi.
-2. Vercelissä `TARJOUS_LAHETTAJA` = `Koomikkotaikuri <lomake@koomikkotaikuri.fi>`.
+2. Vercelissä `TARJOUS_LAHETTAJA` = `Lomake - Koomikkotaikuri <lomake@koomikkotaikuri.fi>`.
 3. Vercelissä `TARJOUS_KUITTAUS` = `on`.
 4. Uudelleenjulkaisu. Testaa lomake **muulla kuin omalla osoitteellasi** ja varmista että kuittaus saapuu.
 
