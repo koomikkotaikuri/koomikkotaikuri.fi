@@ -8,7 +8,6 @@ import { Marquee } from "@/components/ui/Marquee";
 import { Rule } from "@/components/ui/Rule";
 import { Stat } from "@/components/ui/Stat";
 import { Badge } from "@/components/ui/Badge";
-import { Testimonial } from "@/components/ui/Testimonial";
 import { LogoWall } from "@/components/site/LogoWall";
 import { Suositukset } from "@/components/asiakkaat/Suositukset";
 
@@ -21,13 +20,6 @@ export const metadata: Metadata = {
 const marqueeItems = [
   "NCC", "Sokos Hotels", "LG", "Lemminkäinen", "HOAS", "Orange Advertising",
   "Hämeen Kauppakamari", "Kouvolan kaupunki", "Elinkeinoelämän keskusliitto",
-];
-
-const tvShows = [
-  { channel: "Nelonen", title: "Neljän tähden illallinen" },
-  { channel: "Nelonen", title: "Krissen kotibileet" },
-  { channel: "MTV3", title: "Kaikki vastaan yksi" },
-  { channel: "Nelonen", title: "LEGO Masters Suomi" },
 ];
 
 export default function Asiakkaat() {
@@ -65,7 +57,7 @@ export default function Asiakkaat() {
         >
           <Stat value="28" label="vuotta alalla" size="lg" />
           <Stat value="1500+" label="tilaisuutta" size="lg" />
-          <Stat value="500" label="hengen yleisö suurimmillaan" size="lg" />
+          <Stat value="1000+" label="hengen yleisö suurimmillaan" size="lg" />
         </div>
       </section>
 
@@ -138,7 +130,7 @@ export default function Asiakkaat() {
                 >
                   Kouvolan kaupunki · 500 henkeä
                 </span>
-                <Badge variant="brass">Suurin sali</Badge>
+                <Badge variant="brass">Suuri sali</Badge>
               </div>
               <h2 style={{ margin: "0 0 20px 0", fontSize: "clamp(30px, 3.4vw, 52px)", lineHeight: 1.25 }}>
                 Iso sali, sama tunnelma
@@ -176,55 +168,6 @@ export default function Asiakkaat() {
                 style={{ objectFit: "cover" }}
               />
             </div>
-          </div>
-        </div>
-      </section>
-
-      <section
-        className="kt-m-pad"
-        style={{ padding: "96px 48px", borderBottom: "1px solid var(--kt-viiva)", background: "var(--kt-muste)" }}
-      >
-        <div style={{ maxWidth: 1280, margin: "0 auto" }}>
-          <Rule left="NÄHTY TV:SSÄ" right="Neljä ohjelmaa" />
-          <div
-            className="kt-m-cols-2"
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(4, minmax(0, 1fr))",
-              gap: 24,
-              marginTop: 48,
-            }}
-          >
-            {tvShows.map((show) => (
-              <div
-                key={show.title}
-                style={{
-                  background: "var(--kt-paneeli)",
-                  border: "1px solid var(--kt-viiva)",
-                  padding: 24,
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: 12,
-                }}
-              >
-                <div style={{ fontFamily: "var(--kt-font-mono)", fontSize: 11, letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--kt-messinki)" }}>
-                  {show.channel}
-                </div>
-                <h3 style={{ margin: 0, fontSize: 26, lineHeight: 1.25 }}>{show.title}</h3>
-              </div>
-            ))}
-          </div>
-          <div
-            className="kt-m-stack"
-            style={{
-              display: "grid",
-              gridTemplateColumns: "1fr 1fr",
-              gap: "24px 48px",
-              marginTop: 48,
-            }}
-          >
-            <Testimonial quote="JP Pirinen taikoo v*ttu oikeesti." name="Kimmo Laiho aka Elastinen" />
-            <Testimonial quote="Mitähän helv***tiä just tapahtui? Eihän toi oo mahdollista" name='Jari "Jaajo" Linnonmaa' />
           </div>
         </div>
       </section>

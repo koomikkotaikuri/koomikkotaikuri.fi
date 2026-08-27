@@ -178,6 +178,65 @@ a:hover {
   }
 }
 
+/* Hero-slideshow: ristifeidi + Ken Burns + saapumisefektit */
+.kt-slide {
+  transition: opacity 1.5s var(--kt-ease);
+}
+
+@keyframes kt-kenburns {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.06);
+  }
+}
+
+.kt-kenburns-a {
+  transform-origin: 35% 30%;
+  animation: kt-kenburns 7s ease-out forwards;
+}
+
+.kt-kenburns-b {
+  transform-origin: 65% 45%;
+  animation: kt-kenburns 7s ease-out forwards;
+}
+
+@keyframes kt-blur-in {
+  from {
+    filter: blur(10px);
+    transform: scale(1.08);
+  }
+  to {
+    filter: blur(0);
+    transform: scale(1);
+  }
+}
+
+.kt-slide-blur-in {
+  animation: kt-blur-in 1.5s ease-out both;
+}
+
+@keyframes kt-drift-in {
+  from {
+    transform: translateX(2%) scale(1.05);
+  }
+  to {
+    transform: none;
+  }
+}
+
+.kt-slide-drift-in {
+  animation: kt-drift-in 1.5s var(--kt-ease) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .kt-slide,
+  .kt-slide img {
+    animation: none !important;
+  }
+}
+
 html {
   scroll-behavior: smooth;
 }

@@ -64,7 +64,7 @@ export function Naytot() {
           ))}
         </div>
 
-        <div style={{ padding: "8px 0 12px 0", marginBottom: 48 }}>
+        <div style={{ padding: "8px 0 12px 0" }}>
           <LogoWall
             tail={
               <span
@@ -84,32 +84,6 @@ export function Naytot() {
               </span>
             }
           />
-        </div>
-
-        <div
-          style={{
-            display: "flex",
-            flexWrap: "wrap",
-            alignItems: "baseline",
-            gap: "12px 20px",
-            borderTop: "1px solid var(--kt-viiva)",
-            paddingTop: 24,
-          }}
-        >
-          <span
-            style={{
-              fontSize: 11,
-              fontWeight: 700,
-              letterSpacing: "0.2em",
-              textTransform: "uppercase",
-              color: "var(--kt-messinki)",
-            }}
-          >
-            Nähty TV:ssä
-          </span>
-          <span style={{ fontFamily: "var(--kt-font-mono)", fontSize: 13, color: "var(--kt-siniharmaa)" }}>
-            Neljän tähden illallinen · Krissen kotibileet · Kaikki vastaan yksi · LEGO Masters Suomi
-          </span>
         </div>
       </div>
     </section>

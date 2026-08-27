@@ -167,7 +167,7 @@ export default function Palvelut() {
             </p>
             <ul style={bulletList}>
               <li style={bullet}>- Sopii pikkujouluihin, juhlaillallisille ja henkilöstöpäiviin</li>
-              <li style={bullet}>- Toimii 30 hengen kokouksesta 500 hengen saliin</li>
+              <li style={bullet}>- Toimii 30 hengen kokouksesta tuhannen hengen saliin</li>
               <li style={bullet}>- Tarvitaan äänentoisto ja valaistu esiintymistila</li>
             </ul>
             <TarjousLink className="kt-cta-link">Pyydä tarjous →</TarjousLink>

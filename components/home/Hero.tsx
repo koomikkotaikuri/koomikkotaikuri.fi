@@ -3,27 +3,17 @@
 import { useEffect, useRef, useState } from "react";
 import { openTarjous } from "@/lib/tarjous";
 import { VideoModal } from "@/components/site/VideoModal";
+import { HeroSlideshow } from "@/components/home/HeroSlideshow";
 
 const PROMO_VIDEO_ID = "dQCFbs_GC38";
 
 export function Hero() {
-  const videoRef = useRef<HTMLVideoElement>(null);
   const markRowRef = useRef<HTMLSpanElement>(null);
   const taglineRef = useRef<HTMLSpanElement>(null);
   const tagBaseSize = useRef<number | null>(null);
   const [videoOpen, setVideoOpen] = useState(false);
 
   useEffect(() => {
-    const video = videoRef.current;
-    if (video) {
-      video.muted = true;
-      const tryPlay = () => video.play().catch(() => {});
-      tryPlay();
-      video.addEventListener("loadeddata", tryPlay);
-      video.addEventListener("canplay", tryPlay);
-      window.addEventListener("pointerdown", tryPlay, { once: true });
-    }
-
     const fit = () => {
       const mark = markRowRef.current;
       const tagline = taglineRef.current;
@@ -48,15 +38,6 @@ export function Hero() {
     };
   }, []);
 
-  /* Taustavideo pysäytetään promovideon ajaksi ja käynnistetään taas kun
-     lightbox suljetaan. */
-  useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
-    if (videoOpen) video.pause();
-    else video.play().catch(() => {});
-  }, [videoOpen]);
-
   return (
     <section
       style={{
@@ -68,24 +49,7 @@ export function Hero() {
         background: "var(--kt-yo)",
       }}
     >
-      <video
-        ref={videoRef}
-        src="/videos/hero.mp4"
-        loop
-        playsInline
-        autoPlay
-        muted
-        className="kt-hero-video"
-        style={{
-          position: "absolute",
-          top: 0,
-          right: 0,
-          width: "62%",
-          height: "100%",
-          objectFit: "cover",
-          objectPosition: "66% 50%",
-        }}
-      />
+      <HeroSlideshow />
       <div
         className="kt-hero-shade"
         style={{
