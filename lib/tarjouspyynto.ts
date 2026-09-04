@@ -25,6 +25,7 @@ type Validointi =
 function validoi(formData: FormData): Validointi {
   const nimi = teksti(formData, "nimi");
   const email = teksti(formData, "email");
+  const puhelin = teksti(formData, "puhelin");
   const tyyppi = teksti(formData, "tyyppi");
   const pvm = teksti(formData, "pvm");
   const viesti = teksti(formData, "viesti");
@@ -34,6 +35,9 @@ function validoi(formData: FormData): Validointi {
   }
   if (email.length > 200 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
     return { ok: false, viesti: "Tarkista sähköpostiosoite." };
+  }
+  if (puhelin.length < 5 || puhelin.length > 30 || !/^[+\d][\d\s()-]*$/.test(puhelin)) {
+    return { ok: false, viesti: "Tarkista puhelinnumero." };
   }
   if (tyyppi !== "" && !TYYPIT.includes(tyyppi)) {
     return { ok: false, viesti: "Tarkista tilaisuuden tyyppi." };
@@ -51,7 +55,7 @@ function validoi(formData: FormData): Validointi {
     };
   }
 
-  return { ok: true, pyynto: { nimi, email, tyyppi, pvm, viesti } };
+  return { ok: true, pyynto: { nimi, email, puhelin, tyyppi, pvm, viesti } };
 }
 
 export async function lahetaTarjouspyynto(

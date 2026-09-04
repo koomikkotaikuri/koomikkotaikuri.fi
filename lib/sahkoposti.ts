@@ -3,6 +3,7 @@ import { Resend } from "resend";
 export type Tarjouspyynto = {
   nimi: string;
   email: string;
+  puhelin: string;
   tyyppi: string;
   pvm: string;
   viesti: string;
@@ -35,6 +36,7 @@ function ilmoitusTeksti(p: Tarjouspyynto): string {
     "",
     `Nimi:       ${p.nimi}`,
     `Sähköposti: ${p.email}`,
+    `Puhelin:    ${p.puhelin}`,
     `Tilaisuus:  ${p.tyyppi || "-"}`,
     `Ajankohta:  ${p.pvm || "-"}`,
     "",

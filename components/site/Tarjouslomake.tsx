@@ -74,6 +74,7 @@ export function Tarjouslomake() {
      unohtunut lupa-rasti) pyyhkisi koko lomakkeen tyhjäksi. */
   const [nimi, setNimi] = useState("");
   const [email, setEmail] = useState("");
+  const [puhelin, setPuhelin] = useState("");
   const [tyyppi, setTyyppi] = useState("");
   const [pvm, setPvm] = useState("");
   const [viesti, setViesti] = useState("");
@@ -102,6 +103,7 @@ export function Tarjouslomake() {
       setLupa(false);
       setNimi("");
       setEmail("");
+      setPuhelin("");
       setTyyppi("");
       setPvm("");
       setViesti("");
@@ -430,6 +432,18 @@ export function Tarjouslomake() {
                           style={fieldStyle}
                           value={email}
                           onChange={(e) => setEmail(e.target.value)}
+                          {...focusHandlers}
+                        />
+                      </Field>
+                      <Field label="Puhelin">
+                        <input
+                          name="puhelin"
+                          type="tel"
+                          required
+                          placeholder="040 123 4567"
+                          style={fieldStyle}
+                          value={puhelin}
+                          onChange={(e) => setPuhelin(e.target.value)}
                           {...focusHandlers}
                         />
                       </Field>
