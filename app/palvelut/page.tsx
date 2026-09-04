@@ -84,7 +84,17 @@ const bulletList: React.CSSProperties = {
 
 const bullet: React.CSSProperties = { fontSize: 15, lineHeight: 1.6, color: "var(--kt-valo-himmea)" };
 
-function PakettiKuva({ src, alt, ratio }: { src: string; alt: string; ratio: string }) {
+function PakettiKuva({
+  src,
+  alt,
+  ratio,
+  objectPosition = "center",
+}: {
+  src: string;
+  alt: string;
+  ratio: string;
+  objectPosition?: string;
+}) {
   return (
     <div
       style={{
@@ -94,7 +104,13 @@ function PakettiKuva({ src, alt, ratio }: { src: string; alt: string; ratio: str
         border: "1px solid var(--kt-viiva)",
       }}
     >
-      <Image src={src} alt={alt} fill sizes="(max-width: 1280px) 50vw, 640px" style={{ objectFit: "cover" }} />
+      <Image
+        src={src}
+        alt={alt}
+        fill
+        sizes="(max-width: 1280px) 50vw, 640px"
+        style={{ objectFit: "cover", objectPosition }}
+      />
     </div>
   );
 }
@@ -248,7 +264,12 @@ export default function Palvelut() {
               </ul>
               <TarjousLink className="kt-btn-primary">Pyydä tarjous</TarjousLink>
             </div>
-            <PakettiKuva src="/images/lava-esitys-yleiso-08.webp" alt="Koko illan tunnelma, täysi sali" ratio="4 / 3" />
+            <PakettiKuva
+              src="/images/lava-esitys-yleiso-08.webp"
+              alt="Koko illan tunnelma, täysi sali"
+              ratio="4 / 3"
+              objectPosition="center 15%"
+            />
           </div>
         </div>
       </section>
@@ -278,7 +299,11 @@ export default function Palvelut() {
               gap: 20,
             }}
           >
-            <PakettiKuva src="/images/lava-esitys-yleiso-04.webp" alt="JP juontaa, mikki päässä" ratio="16 / 9" />
+            <PakettiKuva
+              src="/images/juonto-studiokuva-mustavalko-01-web.webp"
+              alt="JP Pirinen, studiokuva mustavalkoisena"
+              ratio="16 / 9"
+            />
             <div style={{ ...kicker, marginBottom: 0 }}>Paketti 04 · Juonto</div>
             <h3 style={{ margin: 0, fontSize: 26, lineHeight: 1.25 }}>Illan juontaja</h3>
             <p style={{ margin: 0, fontSize: 15, lineHeight: 1.6, color: "var(--kt-valo-himmea)", textWrap: "pretty" }}>
@@ -301,8 +326,8 @@ export default function Palvelut() {
             }}
           >
             <PakettiKuva
-              src="/images/lifestyle-olohuone-04-web.webp"
-              alt="Workshop-tunnelmaa pöydän ääressä"
+              src="/images/koulutus-puheenvuoro-01-web.webp"
+              alt="JP Pirinen pitämässä puheenvuoroa yleisölle"
               ratio="16 / 9"
             />
             <div style={{ ...kicker, marginBottom: 0 }}>Paketti 05 · Puheenvuoro tai workshop</div>

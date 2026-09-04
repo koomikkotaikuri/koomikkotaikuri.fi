@@ -50,14 +50,20 @@ function kuittausTeksti(p: Tarjouspyynto): string {
   return [
     `Hei ${p.nimi},`,
     "",
-    "kiitos tarjouspyynnöstä. Sain viestisi ja palaan asiaan mahdollisimman pian.",
+    "Kiitos viestistä.",
     "",
-    "Jos asialla on kiire, voit vastata suoraan tähän viestiin.",
+    "Pyrin vastaamaan seuraavan arkipäivän aikana tarjouksella tai tarkentavilla kysymyksillä.",
     "",
-    "Ystävällisin terveisin,",
-    "JP Pirinen",
+    "Vahvistus vasta, kun olet tyytyväinen.",
+    "",
+    "Jos tulee mieleen lisätietoja tai kysymyksiä, vastaa vain tähän viestiin, soita tai laita viestiä.",
+    "",
+    "Pirinen J-P",
     "Koomikkotaikuri",
+    "+358 (0) 44 555 6669",
     "jp@koomikkotaikuri.fi",
+    "",
+    "www.koomikkotaikuri.fi",
   ].join("\n");
 }
 
