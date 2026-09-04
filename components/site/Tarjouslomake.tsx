@@ -68,6 +68,15 @@ export function Tarjouslomake() {
   const [sent, setSent] = useState(false);
   const [lupa, setLupa] = useState(false);
   const [lomakeKey, setLomakeKey] = useState(0);
+  /* Kentät ovat kontrolloituja, koska React nollaa kontrolloimattomat
+     <form action={...}> -kentät automaattisesti aina actionin jälkeen,
+     onnistui lähetys tai ei — muuten epäonnistunut validointi (esim.
+     unohtunut lupa-rasti) pyyhkisi koko lomakkeen tyhjäksi. */
+  const [nimi, setNimi] = useState("");
+  const [email, setEmail] = useState("");
+  const [tyyppi, setTyyppi] = useState("");
+  const [pvm, setPvm] = useState("");
+  const [viesti, setViesti] = useState("");
   const [tila, formAction, pending] = useActionState(lahetaTarjouspyynto, ALKUTILA);
   const [tabVisible, setTabVisible] = useState(false);
   const originRef = useRef({ x: 0, y: 0 });
@@ -91,6 +100,11 @@ export function Tarjouslomake() {
       originRef.current = { x: p.x - cx, y: p.y - cy };
       setSent(false);
       setLupa(false);
+      setNimi("");
+      setEmail("");
+      setTyyppi("");
+      setPvm("");
+      setViesti("");
       setLomakeKey((k) => k + 1);
       setOpen(true);
       setEntering(true);
@@ -402,6 +416,8 @@ export function Tarjouslomake() {
                           required
                           placeholder="Etunimi Sukunimi"
                           style={fieldStyle}
+                          value={nimi}
+                          onChange={(e) => setNimi(e.target.value)}
                           {...focusHandlers}
                         />
                       </Field>
@@ -412,11 +428,19 @@ export function Tarjouslomake() {
                           required
                           placeholder="nimi@yritys.fi"
                           style={fieldStyle}
+                          value={email}
+                          onChange={(e) => setEmail(e.target.value)}
                           {...focusHandlers}
                         />
                       </Field>
                       <Field label="Tilaisuuden tyyppi">
-                        <select name="tyyppi" defaultValue="" style={{ ...fieldStyle, cursor: "pointer" }} {...focusHandlers}>
+                        <select
+                          name="tyyppi"
+                          value={tyyppi}
+                          onChange={(e) => setTyyppi(e.target.value)}
+                          style={{ ...fieldStyle, cursor: "pointer" }}
+                          {...focusHandlers}
+                        >
                           <option value="" disabled>
                             Valitse
                           </option>
@@ -434,6 +458,8 @@ export function Tarjouslomake() {
                           name="pvm"
                           placeholder="12.12.2026 tai 'joulukuu'"
                           style={fieldStyle}
+                          value={pvm}
+                          onChange={(e) => setPvm(e.target.value)}
                           {...focusHandlers}
                         />
                       </Field>
@@ -442,7 +468,14 @@ export function Tarjouslomake() {
                       label="Kerro tilaisuudestanne"
                       helper="Tilaisuuden luonne, paikkakunta ja arvioitu yleisömäärä"
                     >
-                      <textarea name="viesti" rows={4} style={{ ...fieldStyle, resize: "vertical" }} {...focusHandlers} />
+                      <textarea
+                        name="viesti"
+                        rows={4}
+                        style={{ ...fieldStyle, resize: "vertical" }}
+                        value={viesti}
+                        onChange={(e) => setViesti(e.target.value)}
+                        {...focusHandlers}
+                      />
                     </Field>
                     <label
                       style={{
