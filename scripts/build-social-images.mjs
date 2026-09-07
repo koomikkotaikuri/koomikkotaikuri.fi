@@ -31,6 +31,40 @@ const fonts = [
   { name: 'IBMPlexMono', data: plexMono, style: 'normal', weight: 500 },
 ]
 
+const LOGO = join(ROOT, 'public/images/logo.png')
+// the JP ligature inside the wavy ring; source is 445x443
+const MONOGRAM_CROP = { left: 97, top: 88, width: 250, height: 252 }
+
+/** Recolour the dark logo art to cream by reusing its alpha as a mask. */
+async function creamLogo(input) {
+  const img = sharp(input).ensureAlpha()
+  const { width, height } = await img.metadata()
+  const alpha = await img.clone().extractChannel('alpha').toBuffer()
+  return sharp({ create: { width, height, channels: 3, background: { r: 0xf2, g: 0xea, b: 0xda } } })
+    .joinChannel(alpha)
+    .png()
+    .toBuffer()
+}
+
+/**
+ * Profile avatars, 1024x1024. Facebook renders these as a circle at roughly
+ * 40px in the feed, which is where the ring lettering stops being legible —
+ * hence the monogram-only variant, which also matches app/icon.png exactly.
+ */
+async function avatar(name, source, pad) {
+  const art = await creamLogo(source)
+  const inner = Math.round(1024 * (1 - pad * 2))
+  const fitted = await sharp(art)
+    .resize(inner, inner, { fit: 'contain', background: { r: 0x13, g: 0x1a, b: 0x26, alpha: 0 } })
+    .toBuffer()
+
+  await sharp({ create: { width: 1024, height: 1024, channels: 4, background: { r: 0x13, g: 0x1a, b: 0x26, alpha: 1 } } })
+    .composite([{ input: fitted, gravity: 'center' }])
+    .png()
+    .toFile(join(OUT, `${name}.png`))
+  console.log(`${name}.png  1024x1024`)
+}
+
 /** Minimal React-element factory — satori takes the element shape, not JSX. */
 const h = (type, props = {}, ...kids) => ({
   type,
@@ -136,3 +170,7 @@ await write('fb-kansikuva.png',
         h('span', {}, 'STAND UP · TAIKUUS · YRITYSTILAISUUDET'))),
     brassBar(FB.w)),
   FB.w, FB.h)
+
+// -------------------------------------------------------------- FB avatars
+await avatar('fb-profiilikuva-monogrammi', await sharp(LOGO).extract(MONOGRAM_CROP).toBuffer(), 0.16)
+await avatar('fb-profiilikuva-kokologo', LOGO, 0.08)
