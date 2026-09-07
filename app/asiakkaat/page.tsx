@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/site-metadata";
 import Image from "next/image";
 import Link from "next/link";
 import { Nav } from "@/components/site/Nav";
@@ -11,11 +12,12 @@ import { Badge } from "@/components/ui/Badge";
 import { LogoWall } from "@/components/site/LogoWall";
 import { Suositukset } from "@/components/asiakkaat/Suositukset";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Asiakkaat — Koomikkotaikuri JP Pirinen",
   description:
     "1500 tilaisuutta, nolla peruttua keikkaa. Tilaajien suositukset yritystilaisuuksista, juhlista ja TV:stä.",
-};
+  path: "/asiakkaat",
+});
 
 const marqueeItems = [
   "NCC", "Sokos Hotels", "LG", "Lemminkäinen", "HOAS", "Orange Advertising",

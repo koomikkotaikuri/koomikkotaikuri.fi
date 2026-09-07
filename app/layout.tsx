@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Anton, Archivo, IBM_Plex_Mono } from "next/font/google";
 import { Tarjouslomake } from "@/components/site/Tarjouslomake";
+import { pageMetadata, SITE_NAME, SITE_URL } from "@/lib/site-metadata";
 import "./globals.css";
 
 const anton = Anton({
@@ -21,9 +22,15 @@ const plexMono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Koomikkotaikuri JP Pirinen",
-  description:
-    "Stand up, taikuutta ja juontoa yritystilaisuuksiin. 28+ vuotta lavalla, 1500+ tapahtumaa.",
+  // www is the canonical host; without metadataBase the generated card URLs
+  // stay relative and the build fails
+  metadataBase: new URL(SITE_URL),
+  ...pageMetadata({
+    title: SITE_NAME,
+    description:
+      "Stand up, taikuutta ja juontoa yritystilaisuuksiin. 28+ vuotta lavalla, 1500+ tapahtumaa.",
+    path: "/",
+  }),
 };
 
 export default function RootLayout({

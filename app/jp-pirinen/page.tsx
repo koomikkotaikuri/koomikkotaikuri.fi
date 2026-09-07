@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/site-metadata";
 import Image from "next/image";
 import Link from "next/link";
 import { Nav } from "@/components/site/Nav";
@@ -8,11 +9,12 @@ import { CtaBand } from "@/components/site/CtaBand";
 import { Rule } from "@/components/ui/Rule";
 import { Stat } from "@/components/ui/Stat";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "JP Pirinen — Koomikkotaikuri",
   description:
     "Kuka on koomikkotaikuri JP Pirinen: 28 vuotta lavalla, yli 1500 tilaisuutta, stand up ja taikuus samassa esityksessä.",
-};
+  path: "/jp-pirinen",
+});
 
 const bodyText: React.CSSProperties = {
   maxWidth: 560,

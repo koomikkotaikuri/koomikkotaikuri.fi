@@ -10,12 +10,14 @@ import Link from "next/link";
 import { Accordion } from "@/components/site/Accordion";
 import { TarjousLink } from "@/components/site/TarjousLink";
 import { ukkItems, palvelutUkkTitles } from "@/lib/ukk";
+import { pageMetadata } from "@/lib/site-metadata";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Palvelut — Koomikkotaikuri JP Pirinen",
   description:
     "Viisi tapaa tilata: lavashow, close-up-taikuus, täysihoito, juonto sekä puheenvuorot ja workshopit.",
-};
+  path: "/palvelut",
+});
 
 const marqueeItems = [
   "NCC", "Sokos Hotels", "LG", "Lemminkäinen", "HOAS", "Orange Advertising",

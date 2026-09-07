@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/site-metadata";
 import { Nav } from "@/components/site/Nav";
 import { Footer } from "@/components/site/Footer";
 import { CtaBand } from "@/components/site/CtaBand";
@@ -6,11 +7,12 @@ import { Rule } from "@/components/ui/Rule";
 import { Accordion } from "@/components/site/Accordion";
 import { ukkItems } from "@/lib/ukk";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "UKK — Koomikkotaikuri JP Pirinen",
   description:
     "Usein kysytyt kysymykset: sopivuus, kesto, hinta, äänentoisto, peruutukset ja kaikki muu mitä tilaajat kysyvät.",
-};
+  path: "/ukk",
+});
 
 export default function Ukk() {
   return (

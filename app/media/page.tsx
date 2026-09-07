@@ -1,14 +1,16 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/site-metadata";
 import { Nav } from "@/components/site/Nav";
 import { Footer } from "@/components/site/Footer";
 import { Rule } from "@/components/ui/Rule";
 import { MediaSisalto } from "@/components/media/MediaSisalto";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Mediapankki — Koomikkotaikuri JP Pirinen",
   description:
     "Painokelpoiset kuvat, valmiit esittelytekstit, logot ja tekniset tiedot toimittajille ja tapahtumajärjestäjille.",
-};
+  path: "/media",
+});
 
 export default function Media() {
   return (
