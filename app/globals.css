@@ -396,8 +396,11 @@ html {
   .kt-m-gap-xs {
     gap: 6px !important;
   }
+  /* Cancels desktop sticky positioning. Must stay `relative`, not `static`:
+     these boxes contain <Image fill> (position: absolute), which would
+     otherwise escape to the initial containing block and cover the page. */
   .kt-m-static {
-    position: static !important;
+    position: relative !important;
   }
   .kt-m-hide {
     display: none !important;
