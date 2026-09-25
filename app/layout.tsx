@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { Anton, Archivo, IBM_Plex_Mono } from "next/font/google";
+import Script from "next/script";
 import { Tarjouslomake } from "@/components/site/Tarjouslomake";
+import { Evastebanneri } from "@/components/site/Evastebanneri";
+import { GA_ID, GTAG_ALKU } from "@/lib/gtag";
 import { pageMetadata, SITE_NAME, SITE_URL } from "@/lib/site-metadata";
 import "./globals.css";
 
@@ -26,7 +29,7 @@ export const metadata: Metadata = {
   // stay relative and the build fails
   metadataBase: new URL(SITE_URL),
   ...pageMetadata({
-    title: SITE_NAME,
+    title: `${SITE_NAME} — stand up ja taikuutta yritystilaisuuksiin`,
     description:
       "Stand up, taikuutta ja juontoa yritystilaisuuksiin. 28+ vuotta lavalla, 1500+ tapahtumaa.",
     path: "/",
@@ -44,8 +47,17 @@ export default function RootLayout({
       className={`${anton.variable} ${archivo.variable} ${plexMono.variable}`}
     >
       <body>
+        {/* Consent Mode -oletukset ennen gtag.js:ää, ks. lib/gtag.ts */}
+        <Script id="gtag-alku" strategy="beforeInteractive">
+          {GTAG_ALKU}
+        </Script>
+        <Script
+          src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
+          strategy="afterInteractive"
+        />
         {children}
         <Tarjouslomake />
+        <Evastebanneri />
       </body>
     </html>
   );

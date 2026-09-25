@@ -65,7 +65,7 @@ export async function lahetaTarjouspyynto(
   /* Hunajapurkki: ihminen ei näe kenttää, botti täyttää sen.
      Näytetään kiitos mutta ei lähetetä — botin ei tarvitse tietää. */
   if (teksti(formData, "yritys") !== "") {
-    return { ok: true };
+    return { ok: true, botti: true };
   }
 
   const tulos = validoi(formData);

@@ -4,6 +4,7 @@ import { useActionState, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { TARJOUS_EVENT, TYYPIT, openTarjous, type TarjousTila } from "@/lib/tarjous";
 import { lahetaTarjouspyynto } from "@/lib/tarjouspyynto";
+import { trackEvent } from "@/lib/gtag";
 
 const ALKUTILA: TarjousTila = { ok: false };
 
@@ -78,7 +79,22 @@ export function Tarjouslomake() {
   const [tyyppi, setTyyppi] = useState("");
   const [pvm, setPvm] = useState("");
   const [viesti, setViesti] = useState("");
-  const [tila, formAction, pending] = useActionState(lahetaTarjouspyynto, ALKUTILA);
+  const [tila, formAction, pending] = useActionState(
+    async (edellinen: TarjousTila, formData: FormData) => {
+      const tulos = await lahetaTarjouspyynto(edellinen, formData);
+      /* Nimi täsmälleen "Generate_lead": GA4:n tärkeä tapahtuma ja Adsin
+         konversio on luotu tällä nimellä, ja GA4 erottaa kirjainkoon.
+         Ei henkilötietoja parametreihin. */
+      if (tulos.ok && !tulos.botti) {
+        trackEvent("Generate_lead", {
+          form_name: "tarjouspyynto",
+          tilaisuus_tyyppi: formData.get("tyyppi") || "Ei valittu",
+        });
+      }
+      return tulos;
+    },
+    ALKUTILA
+  );
   const [tabVisible, setTabVisible] = useState(false);
   const originRef = useRef({ x: 0, y: 0 });
   const pointerRef = useRef<{ x: number; y: number } | null>(null);
@@ -120,6 +136,8 @@ export function Tarjouslomake() {
     window.addEventListener(TARJOUS_EVENT, onOpen);
     window.addEventListener("keydown", onKey);
     onScroll();
+    /* Vanhat /ota-yhteytta ja /tarjouspyynto ohjautuvat osoitteeseen /#tarjous. */
+    if (window.location.hash === "#tarjous") onOpen();
     return () => {
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("pointerdown", onPointer, true);

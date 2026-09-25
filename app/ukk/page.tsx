@@ -50,6 +50,7 @@ export default function Ukk() {
         links={[
           { label: "Media", href: "/media" },
           { label: "UKK", href: "/ukk" },
+          { label: "Ehdot", href: "/ehdot" },
           { label: "Yhteystiedot", href: "/media#yhteystiedot" },
           { label: "Tietosuoja", href: "/" },
         ]}

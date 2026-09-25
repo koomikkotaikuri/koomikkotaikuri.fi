@@ -16,4 +16,6 @@ export const TYYPIT = [
   "Muu",
 ];
 
-export type TarjousTila = { ok: boolean; viesti?: string };
+/* botti: hunajapurkki laukesi. Kiitos näytetään silti, mutta konversiota
+   ei kirjata. */
+export type TarjousTila = { ok: boolean; viesti?: string; botti?: boolean };

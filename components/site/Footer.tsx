@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { EvasteasetuksetLinkki } from "@/components/site/EvasteasetuksetLinkki";
 
 export type FooterLink = { label: string; href: string };
 
@@ -7,6 +8,7 @@ const defaultLinks: FooterLink[] = [
   { label: "Palvelut", href: "/palvelut" },
   { label: "Asiakkaat", href: "/asiakkaat" },
   { label: "UKK", href: "/ukk" },
+  { label: "Ehdot", href: "/ehdot" },
   { label: "Yhteystiedot", href: "/media#yhteystiedot" },
 ];
 
@@ -43,6 +45,7 @@ export function Footer({ links = defaultLinks }: { links?: FooterLink[] }) {
             {link.label}
           </Link>
         ))}
+        <EvasteasetuksetLinkki />
       </div>
     </footer>
   );

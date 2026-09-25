@@ -471,3 +471,8 @@ html {
     white-space: nowrap;
   }
 }
+
+.kt-video-kansi:hover .kt-video-play,
+.kt-video-kansi:focus-visible .kt-video-play {
+  background: var(--kt-messinki-syva) !important;
+}

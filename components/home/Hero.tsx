@@ -4,8 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { openTarjous } from "@/lib/tarjous";
 import { VideoModal } from "@/components/site/VideoModal";
 import { HeroSlideshow } from "@/components/home/HeroSlideshow";
-
-const PROMO_VIDEO_ID = "dQCFbs_GC38";
+import { PROMO_VIDEO_ID } from "@/lib/videot";
 
 export function Hero() {
   const markRowRef = useRef<HTMLSpanElement>(null);
