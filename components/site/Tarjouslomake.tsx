@@ -79,19 +79,31 @@ export function Tarjouslomake() {
   const [tyyppi, setTyyppi] = useState("");
   const [pvm, setPvm] = useState("");
   const [viesti, setViesti] = useState("");
+  /* Estää toisen lähetyksen kesken edellisen (tuplaklikkaus ehtii ennen
+     kuin pending ehtii disabloida napin): muuten sekä sähköposti että
+     Generate_lead lähtisivät kahdesti. */
+  const lahetyksessaRef = useRef(false);
   const [tila, formAction, pending] = useActionState(
     async (edellinen: TarjousTila, formData: FormData) => {
-      const tulos = await lahetaTarjouspyynto(edellinen, formData);
-      /* Nimi täsmälleen "Generate_lead": GA4:n tärkeä tapahtuma ja Adsin
-         konversio on luotu tällä nimellä, ja GA4 erottaa kirjainkoon.
-         Ei henkilötietoja parametreihin. */
-      if (tulos.ok && !tulos.botti) {
-        trackEvent("Generate_lead", {
-          form_name: "tarjouspyynto",
-          tilaisuus_tyyppi: formData.get("tyyppi") || "Ei valittu",
-        });
+      if (lahetyksessaRef.current) return edellinen;
+      lahetyksessaRef.current = true;
+      try {
+        const tulos = await lahetaTarjouspyynto(edellinen, formData);
+        /* Nimi täsmälleen "Generate_lead": GA4:n tärkeä tapahtuma ja Adsin
+           konversio on luotu tällä nimellä, ja GA4 erottaa kirjainkoon.
+           Ei henkilötietoja parametreihin. transaction_id on lähetyskohtainen,
+           jotta mahdolliset tuplat tunnistaa ja Ads voi deduplikoida ne. */
+        if (tulos.ok && !tulos.botti) {
+          trackEvent("Generate_lead", {
+            form_name: "tarjouspyynto",
+            tilaisuus_tyyppi: formData.get("tyyppi") || "Ei valittu",
+            transaction_id: crypto.randomUUID(),
+          });
+        }
+        return tulos;
+      } finally {
+        lahetyksessaRef.current = false;
       }
-      return tulos;
     },
     ALKUTILA
   );
