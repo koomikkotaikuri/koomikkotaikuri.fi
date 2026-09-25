@@ -28,6 +28,7 @@ export const metadata: Metadata = {
   // www is the canonical host; without metadataBase the generated card URLs
   // stay relative and the build fails
   metadataBase: new URL(SITE_URL),
+  verification: { google: "K8himcPubuI_ob732kWRKItX_pcH51OdVyiyZcJf7Hw" },
   ...pageMetadata({
     title: `${SITE_NAME} — stand up ja taikuutta yritystilaisuuksiin`,
     description:
