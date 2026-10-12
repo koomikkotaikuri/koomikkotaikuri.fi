@@ -19,6 +19,8 @@ import { faqJsonLd, serviceJsonLd } from "@/lib/jsonld";
 import { PROMO_VIDEO_ID } from "@/lib/videot";
 import type { UkkItem } from "@/lib/ukk";
 
+/* Vuosi näkyy titlessa, kickerissä ja UKK:ssa; päivitä kerran syksyllä. */
+const VUOSI = 2026;
 const POLKU = "/pikkujoulut";
 const TYYPPI = "Pikkujoulut";
 const CTA = "Kysy vapaata päivää";
@@ -27,7 +29,7 @@ const KUVAUS =
   "Pikkujouluohjelma yritykselle: stand up, taikuutta ja juonto samalta esiintyjältä. 28 vuotta, 1500+ tapahtumaa, 100 % tyytyväisyystakuu.";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Pikkujouluohjelma 2026 | Stand up ja taikuutta | Koomikkotaikuri JP Pirinen",
+  title: `Pikkujouluohjelma ${VUOSI} | Stand up ja taikuutta | Koomikkotaikuri`,
   description: KUVAUS,
   path: POLKU,
 });
@@ -146,12 +148,12 @@ const ukk: UkkItem[] = [
   {
     title: "Milloin esiintyjä kannattaa varata?",
     content:
-      "Mitä aiemmin, sitä varmemmin päivä on vapaana. Pikkujouluaikaan tietyt perjantait ovat erityisen suosittuja, joten jos juhlan voi järjestää jollekin muulle päivälle, esiintyjän saa varmemmin. Kysy silti myös lyhyellä varoitusajalla, kalenteriin jää tilaa myös yllättäen.",
+      `Mitä aiemmin, sitä varmemmin päivä on vapaana. Vuoden ${VUOSI} pikkujoulukaudella tietyt perjantait ovat erityisen suosittuja, joten jos juhlan voi järjestää jollekin muulle päivälle, esiintyjän saa varmemmin. Kysy silti myös lyhyellä varoitusajalla, kalenteriin jää tilaa myös yllättäen.`,
   },
   {
     title: "Esiinnytkö koko Suomessa?",
     content:
-      "Kyllä. Asun Kouvolassa, mutta koko Suomi on normaalia toiminta-aluetta, ja tarvittaessa esiinnyn myös ulkomailla. Tarjouksen hinta on kokonaishinta, joka sisältää matkat ja muut kulut.",
+      "Kyllä. Suurin osa tilaisuuksista on pääkaupunkiseudulla, eli Helsinki, Espoo ja Vantaa ovat kotikenttää. Pikkujoulukaudella esiinnyn säännöllisesti myös Tampereella, Lahdessa, Kouvolassa, Lappeenrannassa ja Kotkassa. Turkuun, Jyväskylään ja Ouluun tulen yhtä mielelläni, matka on vain pidempi, ja tarvittaessa esiinnyn myös ulkomailla. Tarjouksen hinta on kokonaishinta, joka sisältää matkat ja muut kulut.",
   },
   {
     title: "Mitkä ovat peruutusehdot?",
@@ -171,6 +173,7 @@ const jsonLd = [
     serviceType: "Pikkujouluohjelma: stand up, taikuutta ja juonto",
     description: KUVAUS,
     path: POLKU,
+    kaupungit: ["Helsinki", "Espoo", "Vantaa", "Tampere", "Lahti", "Kouvola", "Lappeenranta", "Kotka", "Turku", "Jyväskylä", "Oulu"],
   }),
   faqJsonLd(ukk),
 ];
@@ -183,7 +186,7 @@ export default function Pikkujoulut() {
       <Nav />
 
       <TeemaHero
-        kickerText="Pikkujoulut 2026"
+        kickerText={`Pikkujoulut ${VUOSI}`}
         title="Pikkujouluohjelma, josta puhutaan vielä maanantaina."
         sub="Stand up, taikuutta ja juonto samalta esiintyjältä. Anna ohjelma ammattilaisen käsiin, niin ehdit itsekin nauttia juhlista."
         ctaLabel={CTA}
@@ -191,7 +194,7 @@ export default function Pikkujoulut() {
         luottamus={["1500+ tapahtumaa", "28 vuotta lavalla", "100 % tyytyväisyystakuu"]}
         kuva={{
           src: "/images/luumupuku-seina-01-web.webp",
-          alt: "Koomikkotaikuri JP Pirinen nojaa seinään luumunvärisessä puvussa",
+          alt: "Koomikkotaikuri JP Pirinen, esiintyjä pikkujouluihin",
           objectPosition: "center 20%",
         }}
       />
@@ -218,7 +221,7 @@ export default function Pikkujoulut() {
       <TeemaVideo
         rule="Video"
         title="Taikuri vai koomikko pikkujouluihin? Molemmat."
-        intro="Koomikko saa salin nauramaan. Taikuri saa sen hetkeksi hiljaiseksi ja sitten nauramaan vielä kovempaa. Kun molemmat tulevat samasta mikistä, iltaa ei tarvitse koota kolmesta eri esiintyjästä. Siksi nimi on Koomikkotaikuri. Katso video, niin tiedät mitä tilaat."
+        intro="Koomikko pikkujouluihin saa salin nauramaan. Taikuri pikkujouluihin saa sen hetkeksi hiljaiseksi ja sitten nauramaan vielä kovempaa. Kun molemmat tulevat samasta mikistä, iltaa ei tarvitse koota kolmesta eri esiintyjästä. Siksi nimi on Koomikkotaikuri. Katso video, niin tiedät mitä tilaat."
         videoId={PROMO_VIDEO_ID}
         videoTitle="Koomikkotaikuri JP Pirinen – esittelyvideo"
         poster="/images/lava-esitys-yleiso-01.webp"

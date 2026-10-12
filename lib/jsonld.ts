@@ -8,11 +8,14 @@ export function serviceJsonLd({
   description,
   path,
   serviceType,
+  kaupungit = [],
 }: {
   name: string;
   description: string;
   path: string;
   serviceType: string;
+  /* Paikkakunnat, joilla palvelua tarjotaan eniten (paikallishaut). */
+  kaupungit?: string[];
 }) {
   return {
     "@context": "https://schema.org",
@@ -22,7 +25,10 @@ export function serviceJsonLd({
     description,
     url: `${SITE_URL}${path}`,
     inLanguage: "fi",
-    areaServed: { "@type": "Country", name: "Suomi" },
+    areaServed: [
+      { "@type": "Country", name: "Suomi" },
+      ...kaupungit.map((name) => ({ "@type": "City", name })),
+    ],
     audience: { "@type": "BusinessAudience", name: "Yritykset ja yhteisöt" },
     provider: {
       "@type": "Person",
