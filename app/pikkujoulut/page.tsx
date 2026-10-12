@@ -167,8 +167,8 @@ export default function Pikkujoulut() {
         tyyppi={TYYPPI}
         luottamus={["1500+ tapahtumaa", "28 vuotta lavalla", "100 % tyytyväisyystakuu"]}
         kuva={{
-          src: "/images/luumupuku-korttiviuhka-01-web.webp",
-          alt: "Koomikkotaikuri JP Pirinen nauraa korttiviuhka kädessä",
+          src: "/images/luumupuku-seina-01-web.webp",
+          alt: "Koomikkotaikuri JP Pirinen nojaa seinään luumunvärisessä puvussa",
           objectPosition: "center 20%",
         }}
       />
