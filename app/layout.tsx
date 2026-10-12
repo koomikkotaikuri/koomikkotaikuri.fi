@@ -5,7 +5,6 @@ import { Tarjouslomake } from "@/components/site/Tarjouslomake";
 import { Evastebanneri } from "@/components/site/Evastebanneri";
 import { MetaPageView } from "@/components/site/MetaPageView";
 import { GA_ID, GTAG_ALKU } from "@/lib/gtag";
-import { FBQ_ALKU } from "@/lib/metaPixel";
 import { pageMetadata, SITE_NAME, SITE_URL } from "@/lib/site-metadata";
 import "./globals.css";
 
@@ -58,10 +57,6 @@ export default function RootLayout({
           src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
           strategy="afterInteractive"
         />
-        {/* Meta-pikseli, suostumus revokattu kunnes kävijä hyväksyy, ks. lib/metaPixel.ts */}
-        <Script id="fbq-alku" strategy="afterInteractive">
-          {FBQ_ALKU}
-        </Script>
         <MetaPageView />
         {children}
         <Tarjouslomake />

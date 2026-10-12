@@ -2,7 +2,8 @@
 
 import { Suspense, useEffect, useRef } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
-import { trackMeta } from "@/lib/metaPixel";
+import { lueSuostumus } from "@/lib/gtag";
+import { lataaMetaPikseli, trackMeta } from "@/lib/metaPixel";
 
 function Seuraa() {
   const polku = usePathname();
@@ -22,6 +23,12 @@ function Seuraa() {
 }
 
 export function MetaPageView() {
+  /* Aiemmin hyväksynyt kävijä: pikseli latautuu ja lähettää ensimmäisen
+     PageView'n heti. Uusi kävijä lataa sen vasta bannerista (asetaSuostumus). */
+  useEffect(() => {
+    if (lueSuostumus() === "granted") lataaMetaPikseli();
+  }, []);
+
   return (
     <Suspense fallback={null}>
       <Seuraa />
