@@ -3,6 +3,7 @@ export const META_PIXEL_ID = process.env.NEXT_PUBLIC_META_PIXEL_ID || "109105730
 declare global {
   interface Window {
     fbq?: (...args: unknown[]) => void;
+    _fbq?: unknown;
   }
 }
 
@@ -22,14 +23,19 @@ export function lataaMetaPikseli() {
 
   if (!window.fbq) {
     const q: unknown[][] = [];
+    /* Sama logiikka kuin Metan virallisessa stubissa: kun fbevents.js on
+       latautunut se asettaa callMethodin, ja kutsut ohjataan sille. */
     const fbq = function (...args: unknown[]) {
-      q.push(args);
-    } as unknown as ((...args: unknown[]) => void) & Record<string, unknown>;
+      const cm = fbq.callMethod as ((...a: unknown[]) => void) | undefined;
+      if (cm) cm.apply(fbq, args);
+      else q.push(args);
+    } as ((...args: unknown[]) => void) & Record<string, unknown>;
     fbq.push = fbq;
     fbq.loaded = true;
     fbq.version = "2.0";
     fbq.queue = q;
     window.fbq = fbq;
+    if (!window._fbq) window._fbq = fbq;
     const script = document.createElement("script");
     script.async = true;
     script.src = "https://connect.facebook.net/en_US/fbevents.js";
