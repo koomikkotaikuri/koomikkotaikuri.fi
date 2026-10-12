@@ -6,25 +6,39 @@ declare global {
   }
 }
 
-/* Metan tavallinen fbq-stub + fbevents.js. Suostumus revokataan ennen initiä,
-   joten mitään ei lähde ennen kuin kävijä on hyväksynyt evästeet; jo annettu
-   suostumus luetaan localStoragesta heti. Avain on sama kuin SUOSTUMUS_AVAIN
-   (lib/gtag.ts), kirjoitettu tähän auki, ettei moduulien välille synny
-   kehäriippuvuutta. Noscript-kuvapikseli jätetty pois, koska se ohittaisi
-   suostumuksen. */
-export const FBQ_ALKU = `
-!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
-n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
-document,'script','https://connect.facebook.net/en_US/fbevents.js');
-fbq('consent', 'revoke');
-try {
-  if (localStorage.getItem('kt-evasteet') === 'granted') fbq('consent', 'grant');
-} catch (e) {}
-fbq('init', '${META_PIXEL_ID}');
-fbq('track', 'PageView');
-`;
+declare global {
+  interface Window {
+    __ktMetaLadattu?: boolean;
+  }
+}
+
+/* Pikseli ladataan vasta kun kävijä on hyväksynyt evästeet. Metan
+   consent-API:a ei käytetä lainkaan: ennen hyväksyntää fbevents.js:ää ei
+   edes haeta. Lippu estää tuplalatauksen. Noscript-kuvapikseli on jätetty
+   pois, koska se ohittaisi suostumuksen. */
+export function lataaMetaPikseli() {
+  if (typeof window === "undefined" || window.__ktMetaLadattu) return;
+  window.__ktMetaLadattu = true;
+
+  if (!window.fbq) {
+    const q: unknown[][] = [];
+    const fbq = function (...args: unknown[]) {
+      q.push(args);
+    } as unknown as ((...args: unknown[]) => void) & Record<string, unknown>;
+    fbq.push = fbq;
+    fbq.loaded = true;
+    fbq.version = "2.0";
+    fbq.queue = q;
+    window.fbq = fbq;
+    const script = document.createElement("script");
+    script.async = true;
+    script.src = "https://connect.facebook.net/en_US/fbevents.js";
+    document.head.appendChild(script);
+  }
+
+  window.fbq?.("init", META_PIXEL_ID);
+  window.fbq?.("track", "PageView");
+}
 
 export function trackMeta(
   name: string,
@@ -33,11 +47,5 @@ export function trackMeta(
 ) {
   if (typeof window !== "undefined" && typeof window.fbq === "function") {
     window.fbq("track", name, params, eventId ? { eventID: eventId } : undefined);
-  }
-}
-
-export function metaSuostumus(hyvaksytty: boolean) {
-  if (typeof window !== "undefined") {
-    window.fbq?.("consent", hyvaksytty ? "grant" : "revoke");
   }
 }

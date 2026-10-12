@@ -1,4 +1,4 @@
-import { metaSuostumus } from "@/lib/metaPixel";
+import { lataaMetaPikseli } from "@/lib/metaPixel";
 
 export const GA_ID = process.env.NEXT_PUBLIC_GA_ID || "G-1ZWV0T429H";
 
@@ -61,7 +61,7 @@ export function asetaSuostumus(hyvaksytty: boolean) {
     ad_personalization: arvo,
     analytics_storage: arvo,
   });
-  metaSuostumus(hyvaksytty);
+  if (hyvaksytty) lataaMetaPikseli();
 }
 
 export function lueSuostumus(): string | null {
