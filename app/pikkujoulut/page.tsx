@@ -11,6 +11,7 @@ import { TeemaVideo } from "@/components/teema/TeemaVideo";
 import { Todisteet, type Lainaus } from "@/components/teema/Todisteet";
 import { Askeleet, type Askel } from "@/components/teema/Askeleet";
 import { TeemaUkk } from "@/components/teema/TeemaUkk";
+import { Esittely } from "@/components/teema/Esittely";
 import { TarjousOletus } from "@/components/teema/TarjousOletus";
 import Link from "next/link";
 import { pageMetadata } from "@/lib/site-metadata";
@@ -35,36 +36,36 @@ export const metadata: Metadata = pageMetadata({
    Hintoja ei näytetä ennen kuin JP on päättänyt asiasta. */
 const tavat: Tapa[] = [
   {
-    kickerText: "Show lavalla · 30-40 min",
+    kickerText: "Yhteinen show koko porukalle · 30-40 min",
     title: "Show lavalla",
-    text: "Stand up ja taikuutta koko yleisölle. Numerot alkavat pienestä ja kasvavat isommiksi, ja koko sali nauraa yhtä aikaa. Myös takarivi.",
+    text: "Yksi esitys, jonka koko porukka katsoo yhtä aikaa: stand up -komiikkaa ja taikuutta, jossa yleisö on mukana. Lavaa ei tarvita. Riittää tila, johon kaikki näkevät esteettömästi, ja sen verran valoa, että esiintyjä erottuu.",
     bullets: [
       "Toimii 30 hengen porukasta tuhannen hengen saliin",
-      "Tarvitaan äänentoisto ja valaistu esiintymistila",
+      "Tarvitaan äänentoisto, alle 50 hengen tilaisuuksiin se järjestyy minun kauttani",
       "Sijoitetaan puheiden jälkeen, ennen tanssia",
     ],
     badge: "Suosituin pikkujouluaikaan",
     cta: "Kysy vapaata päivää",
   },
   {
-    kickerText: "Close-up vieraiden joukossa · 30-60 min",
-    title: "Close-up vieraiden joukossa",
-    text: "Taikuutta pöydissä ja minglauksessa, käden ulottuvilla ja omissa käsissä. Ei vaadi lavaa, tekniikkaa eikä ohjelmataukoa.",
+    kickerText: "Close-up · 30-60 min",
+    title: "Vieraiden joukossa",
+    text: "Taikuutta lähietäisyydeltä, vieraiden keskellä. Kierrän seurueesta toiseen ja esitän saman pienen esityksen jokaiselle ryhmälle vuorollaan, suoraan vieraiden käsissä ja silmien edessä. Ilta jatkuu samalla normaalisti.",
     bullets: [
       "Toimii cocktail-osuudessa ja ruokailun lomassa",
+      "Ei vaadi lavaa, tekniikkaa eikä ohjelmataukoa",
       "Murtaa jään, kun porukka ei vielä tunne toisiaan",
-      "Sopii myös pienelle joukolle ja ahtaaseen tilaan",
     ],
     cta: "Kysy close-upista",
   },
   {
-    kickerText: "Koko ilta · Show, close-up ja juonto",
+    kickerText: "Show, close-up ja juonto",
     title: "Koko ilta",
-    text: "Close-up alkuun, show pääohjelmaksi ja juonto pitämään aikataulun kasassa. Yksi esiintyjä, yksi lasku ja yksi yhteyshenkilö.",
+    text: "Esiintyjä toimii illan seremoniamestarina: hoidan juonnot, pidän aikataulun kasassa ja autan viemään illan läpi. Close-up alkuun, show pääohjelmaksi, eikä erillistä juontajaa tarvita.",
     bullets: [
-      "Palkitsemiset, puheet ja tauot kulkevat sujuvasti",
-      "Tunnelma pysyy yllä myös väliaikoina",
-      "Sinä ehdit itsekin juhlimaan",
+      "Avaus, puheenvuorojen esittely, palkitsemiset ja tauot kulkevat sujuvasti",
+      "Yksi esiintyjä, yksi lasku ja yksi yhteyshenkilö",
+      "Illan juoksutus on ammattilaisen käsissä, sinä ehdit itsekin juhlimaan",
     ],
     cta: "Kysy koko illasta",
   },
@@ -134,6 +135,25 @@ const ukk: UkkItem[] = [
       "Kyllä, esiinnyn myös englanniksi. Esitys on alun perin kasattu suomeksi ja sanaleikit ovat keskeinen osa ohjelmaa, joten sisältöä sovelletaan kielen mukaan ja pituus voi hieman vaihdella. Jos yleisössä on kansainvälisiä vieraita, mainitse siitä tarjouspyynnössä.",
   },
   {
+    title: "Mitä pikkujouluohjelma maksaa ja miten se maksetaan?",
+    content:
+      "Hintaan vaikuttavat tilaisuuden luonne, ennakkotöiden määrä, ajankohta ja sijainti. Tarjouksessa esitetty hinta on kokonaishinta, joka sisältää kaikki kulut. Hintaan lisätään alv 13,5 %. Laskutus tapahtuu tilaisuuden jälkeen, maksuaika normaalisti 7 päivää.",
+  },
+  {
+    title: "Mitä 100 % tyytyväisyystakuu tarkoittaa?",
+    content: "Sitä mitä se sanoo: jos et ole tyytyväinen eikä kukaan nauranut, laskua ei tule.",
+  },
+  {
+    title: "Milloin esiintyjä kannattaa varata?",
+    content:
+      "Mitä aiemmin, sitä varmemmin päivä on vapaana. Pikkujouluaikaan tietyt perjantait ovat erityisen suosittuja, joten jos juhlan voi järjestää jollekin muulle päivälle, esiintyjän saa varmemmin. Kysy silti myös lyhyellä varoitusajalla, kalenteriin jää tilaa myös yllättäen.",
+  },
+  {
+    title: "Esiinnytkö koko Suomessa?",
+    content:
+      "Kyllä. Asun Kouvolassa, mutta koko Suomi on normaalia toiminta-aluetta, ja tarvittaessa esiinnyn myös ulkomailla. Tarjouksen hinta on kokonaishinta, joka sisältää matkat ja muut kulut.",
+  },
+  {
     title: "Mitkä ovat peruutusehdot?",
     content:
       "30 vuorokauden peruutusoikeus molemmilla osapuolilla ilman seuraamuksia. 15-30 päivää ennen tilaisuutta laskutetaan 50 %, alle kaksi viikkoa ennen 100 %. Jos joudun itse perumaan sairauden vuoksi, sitoudun löytämään yhtä tasokkaan esiintyjän. Tarkat ehdot löytyvät Ehdot-sivulta.",
@@ -165,7 +185,7 @@ export default function Pikkujoulut() {
       <TeemaHero
         kickerText="Pikkujoulut 2026"
         title="Pikkujouluohjelma, josta puhutaan vielä maanantaina."
-        sub="Stand up, taikuutta ja juonto samalta esiintyjältä. Sinä hoidat tarjoilut, minä hoidan loput."
+        sub="Stand up, taikuutta ja juonto samalta esiintyjältä. Anna ohjelma ammattilaisen käsiin, niin ehdit itsekin nauttia juhlista."
         ctaLabel={CTA}
         tyyppi={TYYPPI}
         luottamus={["1500+ tapahtumaa", "28 vuotta lavalla", "100 % tyytyväisyystakuu"]}
@@ -190,6 +210,8 @@ export default function Pikkujoulut() {
         tavat={tavat}
         ctaLabel={CTA}
         tyyppi={TYYPPI}
+        alaviite="Mikä tahansa mietityttää? Ota matalalla kynnyksellä yhteyttä. Vastaan mielelläni ja sparraan, mikä kokonaisuus toimii juuri teille."
+        cta={{ label: "Kysy, mikä sopii meille", tyyppi: TYYPPI }}
         lisalinkki={{ href: "/palvelut", label: "Katso kaikki palvelut ja paketit →" }}
       />
 
@@ -201,6 +223,18 @@ export default function Pikkujoulut() {
         videoTitle="Koomikkotaikuri JP Pirinen – esittelyvideo"
         poster="/images/lava-esitys-yleiso-01.webp"
         cta={{ label: "Haluan tämän pikkujouluihin", tyyppi: TYYPPI }}
+      />
+
+      <Esittely
+        rule="Kuka esiintyy"
+        title="JP Pirinen, koomikkotaikuri"
+        kappaleet={[
+          "Olen Juha-Pekka Pirinen, tuttavallisemmin JP. Olen yhdistänyt stand up -komiikan ja taikuuden samaan esitykseen vuodesta 1998, ammatikseni vuodesta 2005. Suurin osa keikoistani on yritysten pikkujouluja, henkilöstötilaisuuksia ja vuosijuhlia.",
+          "Tilaajana on yleensä ihminen, joka järjestää tällaisen illan kerran vuodessa ja kantaa siitä ison henkilökohtaisen vastuun. Minun tehtäväni on ottaa se paino pois hänen harteiltaan.",
+          "Pikkujouluissa yleisö on työkavereita, ja se muuttaa kaiken. Vitsi ei saa nolata ketään keskellä omaa porukkaa. Sovimme etukäteen myös sen, mistä ei vitsailla.",
+        ]}
+        kuva={{ src: "/images/ulkokuva-ruutubleiseri-02-web.webp", alt: "JP Pirinen nauraa tuolissa istuen", objectPosition: "center 25%" }}
+        linkki={{ href: "/jp-pirinen", label: "Lue lisää JP:stä →" }}
       />
 
       <Todisteet
@@ -218,7 +252,7 @@ export default function Pikkujoulut() {
       <TeemaUkk
         rule="UKK"
         title="Usein kysyttyä pikkujouluohjelmasta"
-        intro="Kesto, tekniikka, kieli ja peruutukset. Jos jokin jää vielä askarruttamaan, kerro tilaisuudestasi suoraan lomakkeella."
+        intro="Kesto, tekniikka, hinta, varausaika ja peruutukset. Jos jokin jää vielä askarruttamaan, kerro tilaisuudestasi suoraan lomakkeella."
         items={ukk}
         alaviite={
           <>

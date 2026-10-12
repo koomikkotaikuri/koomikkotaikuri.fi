@@ -1,6 +1,6 @@
 import { Badge } from "@/components/ui/Badge";
 import { TarjousLink } from "@/components/site/TarjousLink";
-import { TeemaOsio, type OsioLinkki } from "./TeemaOsio";
+import { TeemaOsio, type OsioCta, type OsioLinkki } from "./TeemaOsio";
 import { kicker, bodyText, panel } from "./tyylit";
 
 export type Tapa = {
@@ -22,6 +22,8 @@ export function TapaKortit({
   tavat,
   ctaLabel,
   tyyppi,
+  alaviite,
+  cta,
   lisalinkki,
 }: {
   rule: string;
@@ -31,10 +33,13 @@ export function TapaKortit({
   tavat: Tapa[];
   ctaLabel: string;
   tyyppi: string;
+  /* Matalan kynnyksen kehotus korttien alle ("Epävarma? Kysy."). */
+  alaviite?: React.ReactNode;
+  cta?: OsioCta;
   lisalinkki?: OsioLinkki;
 }) {
   return (
-    <TeemaOsio id="tavat" rule={rule} ruleRight={ruleRight} title={title} intro={intro} linkki={lisalinkki}>
+    <TeemaOsio id="tavat" rule={rule} ruleRight={ruleRight} title={title} intro={intro} cta={cta} linkki={lisalinkki}>
       <div
         className="kt-m-stack"
         style={{ display: "grid", gridTemplateColumns: `repeat(${tavat.length}, 1fr)`, gap: 24 }}
@@ -77,6 +82,9 @@ export function TapaKortit({
           </div>
         ))}
       </div>
+      {alaviite && (
+        <p style={{ ...bodyText, fontSize: 16, maxWidth: 640, marginTop: 40 }}>{alaviite}</p>
+      )}
     </TeemaOsio>
   );
 }
