@@ -8,6 +8,7 @@ import {
   lueSuostumus,
   trackEvent,
 } from "@/lib/gtag";
+import { trackMeta } from "@/lib/metaPixel";
 
 function kuuntele(muuttui: () => void) {
   window.addEventListener(SUOSTUMUS_MUUTTUI_EVENT, muuttui);
@@ -37,8 +38,10 @@ export function Evastebanneri() {
     const onClick = (e: MouseEvent) => {
       const linkki = (e.target as Element | null)?.closest?.("a[href]");
       const href = linkki?.getAttribute("href") ?? "";
-      if (href.startsWith("tel:")) trackEvent("contact_click", { method: "phone" });
-      else if (href.startsWith("mailto:")) trackEvent("contact_click", { method: "email" });
+      const method = href.startsWith("tel:") ? "phone" : href.startsWith("mailto:") ? "email" : null;
+      if (!method) return;
+      trackEvent("contact_click", { method });
+      trackMeta("Contact", { method });
     };
     document.addEventListener("click", onClick, true);
     return () => document.removeEventListener("click", onClick, true);
@@ -85,7 +88,7 @@ export function Evastebanneri() {
         Evästeet
       </div>
       <p style={{ margin: "0 0 18px 0", fontSize: 14, lineHeight: 1.6, color: "var(--kt-valo-himmea)" }}>
-        Käytän Googlen analytiikka- ja mainosevästeitä, jotta näen mikä sivustolla toimii ja
+        Käytän Googlen ja Metan analytiikka- ja mainosevästeitä, jotta näen mikä sivustolla toimii ja
         tavoitan oikeat tilaajat. Välttämättömät toiminnot toimivat ilman niitäkin.
       </p>
       <div style={{ display: "flex", flexWrap: "wrap", gap: 12 }}>

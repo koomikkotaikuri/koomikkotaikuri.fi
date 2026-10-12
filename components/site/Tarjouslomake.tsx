@@ -5,6 +5,7 @@ import Image from "next/image";
 import { TARJOUS_EVENT, TYYPIT, openTarjous, type TarjousTila } from "@/lib/tarjous";
 import { lahetaTarjouspyynto } from "@/lib/tarjouspyynto";
 import { trackEvent } from "@/lib/gtag";
+import { trackMeta } from "@/lib/metaPixel";
 
 const ALKUTILA: TarjousTila = { ok: false };
 
@@ -94,11 +95,15 @@ export function Tarjouslomake() {
            Ei henkilötietoja parametreihin. transaction_id on lähetyskohtainen,
            jotta mahdolliset tuplat tunnistaa ja Ads voi deduplikoida ne. */
         if (tulos.ok && !tulos.botti) {
+          const tid = crypto.randomUUID();
+          const tyyppi = String(formData.get("tyyppi") || "Ei valittu");
           trackEvent("Generate_lead", {
             form_name: "tarjouspyynto",
-            tilaisuus_tyyppi: formData.get("tyyppi") || "Ei valittu",
-            transaction_id: crypto.randomUUID(),
+            tilaisuus_tyyppi: tyyppi,
+            transaction_id: tid,
           });
+          /* Sama tid Metan eventID:nä: mahdollinen Conversions API deduplikoituu sillä. */
+          trackMeta("Lead", { content_name: "tarjouspyynto", content_category: tyyppi }, tid);
         }
         return tulos;
       } finally {
