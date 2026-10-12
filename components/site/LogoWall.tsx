@@ -1,6 +1,6 @@
 /* Tilted client-logo wall from the design ("Näytöt" / "Logoseinä" sections). */
 
-type Logo = { src: string; alt: string; height: number; tilt: number };
+export type Logo = { src: string; alt: string; height: number; tilt: number };
 
 export const clientLogos: Logo[] = [
   { src: "/images/logo-kouvola-cream.png", alt: "Kouvolan kaupunki", height: 22, tilt: -1.5 },
@@ -18,10 +18,13 @@ export function LogoWall({
   scale = 1,
   gap = "44px 64px",
   tail,
+  logos = clientLogos,
 }: {
   scale?: number;
   gap?: string;
   tail?: React.ReactNode;
+  /* Oletuksena koko seinä; teemasivut voivat rajata listaa (esim. ilman julkishallintoa). */
+  logos?: Logo[];
 }) {
   return (
     <div
@@ -33,7 +36,7 @@ export function LogoWall({
         gap,
       }}
     >
-      {clientLogos.map((logo) => (
+      {logos.map((logo) => (
         /* eslint-disable-next-line @next/next/no-img-element -- decorative logos with intrinsic-height sizing */
         <img
           key={logo.alt}

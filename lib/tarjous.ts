@@ -1,8 +1,23 @@
 /* All "Pyydä tarjous" controls open the Tarjouslomake modal via this event. */
 export const TARJOUS_EVENT = "kt-open-tarjous";
 
-export function openTarjous() {
-  window.dispatchEvent(new CustomEvent(TARJOUS_EVENT));
+/* Esivalinta: teemasivu (esim. /pikkujoulut) voi avata lomakkeen niin, että
+   tilaisuuden tyyppi on valmiiksi valittu. Välitetään CustomEventin
+   detailissa; Tarjouslomake asettaa tyyppi-kentän tällä arvolla. */
+export type TarjousEsivalinta = { tyyppi?: string };
+
+/* Sivukohtainen oletus (ks. components/teema/TarjousOletus.tsx): myös
+   sivupalkin "Yhteys"-liuska ja mobiilin alapalkki avaavat lomakkeen
+   esivalinnalla, vaikka ne eivät tiedä millä sivulla ollaan. */
+let oletus: TarjousEsivalinta | null = null;
+
+export function asetaTarjousOletus(esivalinta: TarjousEsivalinta | null) {
+  oletus = esivalinta;
+}
+
+export function openTarjous(esivalinta?: TarjousEsivalinta) {
+  const detail: TarjousEsivalinta = { ...oletus, ...esivalinta };
+  window.dispatchEvent(new CustomEvent<TarjousEsivalinta>(TARJOUS_EVENT, { detail }));
 }
 
 /* Tilaisuustyypit. Lomake renderöi nämä valikkoon ja Server Action

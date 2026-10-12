@@ -6,12 +6,17 @@ export function CtaBand({
   sub,
   background = "var(--kt-muste)",
   borderTop = true,
+  label = "PYYDÄ TARJOUS",
+  tyyppi,
 }: {
   title: string;
   accent: string;
   sub?: string;
   background?: string;
   borderTop?: boolean;
+  label?: string;
+  /* Esivalittu tilaisuuden tyyppi lomakkeelle (ks. lib/tarjous.ts). */
+  tyyppi?: string;
 }) {
   return (
     <section
@@ -67,9 +72,10 @@ export function CtaBand({
           )}
         </div>
         <TicketCTA
-          label="PYYDÄ TARJOUS"
+          label={label}
           note="100 % TYYTYVÄISYYSTAKUU — JOS ET OLE TYYTYVÄINEN, LASKUA EI TULE"
           width="min(420px, 100%)"
+          tyyppi={tyyppi}
         />
       </div>
     </section>

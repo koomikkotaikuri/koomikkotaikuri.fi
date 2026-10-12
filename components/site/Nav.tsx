@@ -153,7 +153,7 @@ export function Nav() {
           </div>
         </div>
         <button
-          onClick={openTarjous}
+          onClick={() => openTarjous()}
           style={{
             fontFamily: "var(--kt-font-body)",
             fontWeight: 700,
