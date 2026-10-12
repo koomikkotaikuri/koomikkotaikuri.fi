@@ -9,6 +9,8 @@ export type Tapa = {
   text: string;
   bullets: string[];
   badge?: string;
+  /* Korttikohtainen painiketeksti; oletuksena osion yhteinen ctaLabel. */
+  cta?: string;
 };
 
 /* "Kolme tapaa rakentaa ilta": kortit, joissa jokaisessa painike lomakkeelle. */
@@ -69,7 +71,7 @@ export function TapaKortit({
             </ul>
             <div style={{ marginTop: "auto", paddingTop: 8 }}>
               <TarjousLink className={tapa.badge ? "kt-btn-primary" : "kt-btn-secondary"} tyyppi={tyyppi}>
-                {ctaLabel}
+                {tapa.cta ?? ctaLabel}
               </TarjousLink>
             </div>
           </div>

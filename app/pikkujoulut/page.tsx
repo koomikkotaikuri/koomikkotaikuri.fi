@@ -44,6 +44,7 @@ const tavat: Tapa[] = [
       "Sijoitetaan puheiden jälkeen, ennen tanssia",
     ],
     badge: "Suosituin pikkujouluaikaan",
+    cta: "Kysy vapaata päivää",
   },
   {
     kickerText: "Close-up vieraiden joukossa · 30-60 min",
@@ -54,6 +55,7 @@ const tavat: Tapa[] = [
       "Murtaa jään, kun porukka ei vielä tunne toisiaan",
       "Sopii myös pienelle joukolle ja ahtaaseen tilaan",
     ],
+    cta: "Kysy close-upista",
   },
   {
     kickerText: "Koko ilta · Show, close-up ja juonto",
@@ -64,6 +66,7 @@ const tavat: Tapa[] = [
       "Tunnelma pysyy yllä myös väliaikoina",
       "Sinä ehdit itsekin juhlimaan",
     ],
+    cta: "Kysy koko illasta",
   },
 ];
 
@@ -175,7 +178,7 @@ export default function Pikkujoulut() {
 
       <KiireNauha
         teksti="Pikkujouluajan perjantait menevät ensin. Torstait ovat aliarvostettuja."
-        ctaLabel={CTA}
+        ctaLabel="Tarkista oma päiväsi"
         tyyppi={TYYPPI}
       />
 
@@ -197,7 +200,7 @@ export default function Pikkujoulut() {
         videoId={PROMO_VIDEO_ID}
         videoTitle="Koomikkotaikuri JP Pirinen – esittelyvideo"
         poster="/images/lava-esitys-yleiso-01.webp"
-        cta={{ label: CTA, tyyppi: TYYPPI }}
+        cta={{ label: "Haluan tämän pikkujouluihin", tyyppi: TYYPPI }}
       />
 
       <Todisteet
@@ -206,11 +209,11 @@ export default function Pikkujoulut() {
         intro="Pikkujouluja, henkilöstöjuhlia ja vuosijuhlia yli 1500 tapahtuman verran. Tässä muutama, jotka kertoivat jälkeenpäin miltä tuntui."
         logot={logot}
         lainaukset={lainaukset}
-        cta={{ label: CTA, tyyppi: TYYPPI }}
+        cta={{ label: "Pyydä tarjous omiin juhliin", tyyppi: TYYPPI }}
         lisalinkki={{ href: "/asiakkaat", label: "Lue lisää asiakkaiden kokemuksia →" }}
       />
 
-      <Askeleet rule="Näin se etenee" title="Näin se etenee" askeleet={askeleet} cta={{ label: CTA, tyyppi: TYYPPI }} />
+      <Askeleet rule="Näin se etenee" title="Näin se etenee" askeleet={askeleet} cta={{ label: "Aloita askeleesta 1", tyyppi: TYYPPI }} />
 
       <TeemaUkk
         rule="UKK"
@@ -228,7 +231,7 @@ export default function Pikkujoulut() {
       <CtaBand
         title="Kerro päivä,"
         accent="niin kerron onko se vielä vapaana."
-        label={CTA.toUpperCase()}
+        label="KERRO PÄIVÄ"
         tyyppi={TYYPPI}
       />
 
