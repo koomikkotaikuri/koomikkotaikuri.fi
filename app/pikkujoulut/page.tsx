@@ -229,7 +229,7 @@ export default function Pikkujoulut() {
         rule="Kuka esiintyy"
         title="JP Pirinen, koomikkotaikuri"
         kappaleet={[
-          "Olen Juha-Pekka Pirinen, tuttavallisemmin JP. Olen yhdistänyt stand up -komiikan ja taikuuden samaan esitykseen vuodesta 1998, ammatikseni vuodesta 2005. Suurin osa keikoistani on yritysten pikkujouluja, henkilöstötilaisuuksia ja vuosijuhlia.",
+          "Olen Juha-Pekka Pirinen, tuttavallisemmin JP. Olen yhdistänyt stand up -komiikan ja taikuuden samaan esitykseen vuodesta 1998, ammatikseni vuodesta 2005. Suurin osa tilaisuuksista, joissa vierailen, on yritysten pikkujouluja, henkilöstötilaisuuksia ja vuosijuhlia.",
           "Tilaajana on yleensä ihminen, joka järjestää tällaisen illan kerran vuodessa ja kantaa siitä ison henkilökohtaisen vastuun. Minun tehtäväni on ottaa se paino pois hänen harteiltaan.",
           "Pikkujouluissa yleisö on työkavereita, ja se muuttaa kaiken. Vitsi ei saa nolata ketään keskellä omaa porukkaa. Sovimme etukäteen myös sen, mistä ei vitsailla.",
         ]}
