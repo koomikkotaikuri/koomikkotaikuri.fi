@@ -46,4 +46,11 @@ export const ogCards = {
     background: "studio",
     alt: "JP Pirinen — kerro tilaisuudestasi, loput hoidan minä",
   },
+  // the page's own H1, components/teema via app/pikkujoulut/page.tsx
+  pikkujoulut: {
+    tagline: "Pikkujouluohjelma, josta puhutaan vielä maanantaina",
+    accent: "vielä maanantaina",
+    background: "lava",
+    alt: "Pikkujouluohjelma yritykselle — stand up ja taikuutta, Koomikkotaikuri JP Pirinen",
+  },
 } as const satisfies Record<string, OgCard>;

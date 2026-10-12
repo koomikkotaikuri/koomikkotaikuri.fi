@@ -476,3 +476,41 @@ html {
 .kt-video-kansi:focus-visible .kt-video-play {
   background: var(--kt-messinki-syva) !important;
 }
+
+/* ---- Teemasivun hero (components/teema/TeemaHero.tsx) ----
+   Puhelimessa pystykuva siirtyy tekstin taakse, jotta otsikko, painike ja
+   luottamusrivi mahtuvat ensimmäiseen ruutuun ilman vieritystä. */
+@media (max-width: 767px) {
+  .kt-teema-hero {
+    grid-template-columns: 1fr !important;
+    gap: 0 !important;
+    padding: 104px 20px 48px 20px !important;
+    align-items: end !important;
+    min-height: 100svh;
+  }
+  .kt-teema-hero-kuva {
+    position: absolute !important;
+    inset: 0;
+    aspect-ratio: auto !important;
+    max-height: none !important;
+    border: none !important;
+    z-index: 1;
+  }
+  .kt-teema-hero-kuva::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      180deg,
+      rgba(19, 26, 38, 0.35) 0%,
+      rgba(19, 26, 38, 0.55) 30%,
+      rgba(19, 26, 38, 0.88) 60%,
+      #131a26 100%
+    );
+  }
+  .kt-teema-hero-teksti .kt-btn-primary {
+    width: 100%;
+    text-align: center;
+    padding: 16px 24px;
+  }
+}

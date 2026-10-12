@@ -8,17 +8,20 @@ export function TicketCTA({
   note = "Vastaus nopeasti · Et pety!",
   onClick,
   width,
+  tyyppi,
 }: {
   label?: string;
   note?: string;
   onClick?: () => void;
   width?: string;
+  /* Esivalittu tilaisuuden tyyppi lomakkeelle (ks. lib/tarjous.ts). */
+  tyyppi?: string;
 }) {
   const [hover, setHover] = useState(false);
   const brass = hover ? "var(--kt-action-primary-hover)" : "var(--kt-action-primary)";
   return (
     <button
-      onClick={onClick ?? openTarjous}
+      onClick={onClick ?? (() => openTarjous(tyyppi ? { tyyppi } : undefined))}
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
       style={{

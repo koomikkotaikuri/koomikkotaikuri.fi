@@ -2,7 +2,13 @@
 
 import { useActionState, useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { TARJOUS_EVENT, TYYPIT, openTarjous, type TarjousTila } from "@/lib/tarjous";
+import {
+  TARJOUS_EVENT,
+  TYYPIT,
+  openTarjous,
+  type TarjousEsivalinta,
+  type TarjousTila,
+} from "@/lib/tarjous";
 import { lahetaTarjouspyynto } from "@/lib/tarjouspyynto";
 import { trackEvent } from "@/lib/gtag";
 import { trackMeta } from "@/lib/metaPixel";
@@ -127,17 +133,21 @@ export function Tarjouslomake() {
     const onPointer = (e: PointerEvent) => {
       pointerRef.current = { x: e.clientX, y: e.clientY };
     };
-    const onOpen = () => {
+    const onOpen = (e?: Event) => {
       const cx = window.innerWidth / 2;
       const cy = window.innerHeight / 2;
       const p = pointerRef.current ?? { x: cx, y: cy };
       originRef.current = { x: p.x - cx, y: p.y - cy };
+      /* Esivalinta (esim. teemasivun "Pikkujoulut") vain, jos arvo on
+         valikossa; muuten kenttä jää tyhjäksi kuten ennenkin. */
+      const esivalinta = (e as CustomEvent<TarjousEsivalinta> | undefined)?.detail;
+      const esiTyyppi = esivalinta?.tyyppi;
       setSent(false);
       setLupa(false);
       setNimi("");
       setEmail("");
       setPuhelin("");
-      setTyyppi("");
+      setTyyppi(esiTyyppi && TYYPIT.includes(esiTyyppi) ? esiTyyppi : "");
       setPvm("");
       setViesti("");
       setLomakeKey((k) => k + 1);
@@ -154,7 +164,7 @@ export function Tarjouslomake() {
     window.addEventListener("keydown", onKey);
     onScroll();
     /* Vanhat /ota-yhteytta ja /tarjouspyynto ohjautuvat osoitteeseen /#tarjous. */
-    if (window.location.hash === "#tarjous") onOpen();
+    if (window.location.hash === "#tarjous") openTarjous();
     return () => {
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("pointerdown", onPointer, true);
@@ -178,7 +188,7 @@ export function Tarjouslomake() {
         role="button"
         aria-label="Avaa yhteydenottolomake"
         className="kt-m-hide"
-        onClick={openTarjous}
+        onClick={() => openTarjous()}
         onMouseEnter={(e) => {
           e.currentTarget.style.borderColor = "var(--kt-messinki)";
         }}
@@ -265,7 +275,7 @@ export function Tarjouslomake() {
         }}
       >
         <button
-          onClick={openTarjous}
+          onClick={() => openTarjous()}
           className="kt-btn-primary"
           style={{ width: "100%", padding: "14px 24px" }}
         >

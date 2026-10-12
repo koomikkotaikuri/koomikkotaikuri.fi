@@ -158,7 +158,7 @@ export function Hero() {
             Katso video
           </button>
           <button
-            onClick={openTarjous}
+            onClick={() => openTarjous()}
             style={{
               fontFamily: "var(--kt-font-body)",
               fontWeight: 700,
