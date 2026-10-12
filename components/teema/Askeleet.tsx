@@ -1,4 +1,4 @@
-import { TeemaOsio } from "./TeemaOsio";
+import { TeemaOsio, type OsioCta } from "./TeemaOsio";
 import { bodyText, panel } from "./tyylit";
 
 export type Askel = { title: string; text: string };
@@ -8,13 +8,15 @@ export function Askeleet({
   rule,
   title,
   askeleet,
+  cta,
 }: {
   rule: string;
   title: React.ReactNode;
   askeleet: Askel[];
+  cta?: OsioCta;
 }) {
   return (
-    <TeemaOsio rule={rule} ruleRight={`${askeleet.length} askelta`} title={title} tumma>
+    <TeemaOsio rule={rule} ruleRight={`${askeleet.length} askelta`} title={title} tumma cta={cta}>
       <ol
         className="kt-m-stack"
         style={{

@@ -43,6 +43,7 @@ const tavat: Tapa[] = [
       "Tarvitaan äänentoisto ja valaistu esiintymistila",
       "Sijoitetaan puheiden jälkeen, ennen tanssia",
     ],
+    badge: "Suosituin pikkujouluaikaan",
   },
   {
     kickerText: "Close-up vieraiden joukossa · 30-60 min",
@@ -63,7 +64,6 @@ const tavat: Tapa[] = [
       "Tunnelma pysyy yllä myös väliaikoina",
       "Sinä ehdit itsekin juhlimaan",
     ],
-    badge: "Suosituin",
   },
 ];
 
@@ -174,7 +174,7 @@ export default function Pikkujoulut() {
       />
 
       <KiireNauha
-        teksti="Joulukuun perjantait menevät ensin. Torstait ovat aliarvostettuja."
+        teksti="Pikkujouluajan perjantait menevät ensin. Torstait ovat aliarvostettuja."
         ctaLabel={CTA}
         tyyppi={TYYPPI}
       />
@@ -193,10 +193,11 @@ export default function Pikkujoulut() {
       <TeemaVideo
         rule="Video"
         title="Taikuri vai koomikko pikkujouluihin? Molemmat."
-        intro="Koomikko saa salin nauramaan. Taikuri saa sen hetkeksi hiljaiseksi ja sitten nauramaan vielä kovempaa. Kun molemmat tulevat samasta mikistä, iltaa ei tarvitse koota kolmesta eri esiintyjästä. Katso video, niin tiedät mitä tilaat."
+        intro="Koomikko saa salin nauramaan. Taikuri saa sen hetkeksi hiljaiseksi ja sitten nauramaan vielä kovempaa. Kun molemmat tulevat samasta mikistä, iltaa ei tarvitse koota kolmesta eri esiintyjästä. Siksi nimi on Koomikkotaikuri. Katso video, niin tiedät mitä tilaat."
         videoId={PROMO_VIDEO_ID}
         videoTitle="Koomikkotaikuri JP Pirinen – esittelyvideo"
         poster="/images/lava-esitys-yleiso-01.webp"
+        cta={{ label: CTA, tyyppi: TYYPPI }}
       />
 
       <Todisteet
@@ -205,10 +206,11 @@ export default function Pikkujoulut() {
         intro="Pikkujouluja, henkilöstöjuhlia ja vuosijuhlia yli 1500 tapahtuman verran. Tässä muutama, jotka kertoivat jälkeenpäin miltä tuntui."
         logot={logot}
         lainaukset={lainaukset}
+        cta={{ label: CTA, tyyppi: TYYPPI }}
         lisalinkki={{ href: "/asiakkaat", label: "Lue lisää asiakkaiden kokemuksia →" }}
       />
 
-      <Askeleet rule="Näin se etenee" title="Näin se etenee" askeleet={askeleet} />
+      <Askeleet rule="Näin se etenee" title="Näin se etenee" askeleet={askeleet} cta={{ label: CTA, tyyppi: TYYPPI }} />
 
       <TeemaUkk
         rule="UKK"

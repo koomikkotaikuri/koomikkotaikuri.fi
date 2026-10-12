@@ -1,7 +1,6 @@
-import Link from "next/link";
 import { Badge } from "@/components/ui/Badge";
 import { TarjousLink } from "@/components/site/TarjousLink";
-import { TeemaOsio } from "./TeemaOsio";
+import { TeemaOsio, type OsioLinkki } from "./TeemaOsio";
 import { kicker, bodyText, panel } from "./tyylit";
 
 export type Tapa = {
@@ -30,10 +29,10 @@ export function TapaKortit({
   tavat: Tapa[];
   ctaLabel: string;
   tyyppi: string;
-  lisalinkki?: { href: string; label: string };
+  lisalinkki?: OsioLinkki;
 }) {
   return (
-    <TeemaOsio id="tavat" rule={rule} ruleRight={ruleRight} title={title} intro={intro}>
+    <TeemaOsio id="tavat" rule={rule} ruleRight={ruleRight} title={title} intro={intro} linkki={lisalinkki}>
       <div
         className="kt-m-stack"
         style={{ display: "grid", gridTemplateColumns: `repeat(${tavat.length}, 1fr)`, gap: 24 }}
@@ -76,13 +75,6 @@ export function TapaKortit({
           </div>
         ))}
       </div>
-      {lisalinkki && (
-        <p style={{ ...bodyText, marginTop: 32, color: "var(--kt-siniharmaa)" }}>
-          <Link href={lisalinkki.href} className="kt-cta-link">
-            {lisalinkki.label}
-          </Link>
-        </p>
-      )}
     </TeemaOsio>
   );
 }

@@ -14,6 +14,7 @@ export function TeemaHero({
   tyyppi,
   luottamus,
   kuva,
+  sanamerkki = true,
 }: {
   kickerText: string;
   title: string;
@@ -22,6 +23,9 @@ export function TeemaHero({
   tyyppi: string;
   luottamus: string[];
   kuva: { src: string; alt: string; objectPosition?: string };
+  /* Etusivun sanamerkki (KOOMIKKOTAIKURI / TAIKURIKOOMIKKO) otsikon yläpuolella,
+     jotta kylmä kävijä näkee heti kenen sivulla on. */
+  sanamerkki?: boolean;
 }) {
   return (
     <section
@@ -45,11 +49,33 @@ export function TeemaHero({
         style={{ position: "relative", zIndex: 2, display: "flex", flexDirection: "column", gap: 24 }}
       >
         <div style={{ ...kicker, color: "var(--kt-siniharmaa)", fontSize: 12 }}>{kickerText}</div>
+        {sanamerkki && (
+          <p
+            style={{
+              margin: 0,
+              fontFamily: "var(--kt-font-display)",
+              fontWeight: 400,
+              textTransform: "uppercase",
+              color: "var(--kt-valo)",
+              fontSize: "min(clamp(44px, 5.4vw, 88px), 11.6vw)",
+              lineHeight: 1.04,
+              letterSpacing: "-0.01em",
+              whiteSpace: "nowrap",
+            }}
+          >
+            <span style={{ display: "block" }}>
+              KOOMIKKO<span style={{ color: "var(--kt-messinki)" }}>TAIKURI</span>
+            </span>
+            <span style={{ display: "block" }}>
+              <span style={{ color: "var(--kt-messinki)" }}>TAIKURI</span>KOOMIKKO
+            </span>
+          </p>
+        )}
         <h1
           style={{
             margin: 0,
-            fontSize: "clamp(38px, 5.2vw, 80px)",
-            lineHeight: 1.12,
+            fontSize: sanamerkki ? "clamp(26px, 2.6vw, 42px)" : "clamp(38px, 5.2vw, 80px)",
+            lineHeight: 1.2,
             maxWidth: 760,
             textWrap: "balance",
           }}

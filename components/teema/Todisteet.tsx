@@ -1,7 +1,6 @@
-import Link from "next/link";
 import { LogoWall, clientLogos, type Logo } from "@/components/site/LogoWall";
-import { TeemaOsio } from "./TeemaOsio";
-import { bodyText, panel } from "./tyylit";
+import { TeemaOsio, type OsioCta, type OsioLinkki } from "./TeemaOsio";
+import { panel } from "./tyylit";
 
 export type Lainaus = { quote: string; name: string; org: string };
 
@@ -13,6 +12,7 @@ export function Todisteet({
   intro,
   logot = clientLogos,
   lainaukset,
+  cta,
   lisalinkki,
 }: {
   rule: string;
@@ -20,10 +20,11 @@ export function Todisteet({
   intro?: React.ReactNode;
   logot?: Logo[];
   lainaukset: Lainaus[];
-  lisalinkki?: { href: string; label: string };
+  cta?: OsioCta;
+  lisalinkki?: OsioLinkki;
 }) {
   return (
-    <TeemaOsio rule={rule} title={title} intro={intro}>
+    <TeemaOsio rule={rule} title={title} intro={intro} cta={cta} linkki={lisalinkki}>
       <LogoWall logos={logot} scale={0.9} gap="32px 48px" />
       <div
         className="kt-m-stack"
@@ -69,13 +70,6 @@ export function Todisteet({
           </figure>
         ))}
       </div>
-      {lisalinkki && (
-        <p style={{ ...bodyText, marginTop: 32, color: "var(--kt-siniharmaa)" }}>
-          <Link href={lisalinkki.href} className="kt-cta-link">
-            {lisalinkki.label}
-          </Link>
-        </p>
-      )}
     </TeemaOsio>
   );
 }

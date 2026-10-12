@@ -1,7 +1,14 @@
+import Link from "next/link";
 import { Rule } from "@/components/ui/Rule";
-import { sectionH2, lead } from "./tyylit";
+import { TarjousLink } from "@/components/site/TarjousLink";
+import { sectionH2, lead, bodyText } from "./tyylit";
 
-/* Teemasivun osio: Rule-otsake, H2 (luonteva hakulause), johdanto ja sisältö. */
+export type OsioCta = { label: string; tyyppi: string };
+export type OsioLinkki = { href: string; label: string };
+
+/* Teemasivun osio: Rule-otsake, H2 (luonteva hakulause), johdanto, sisältö ja
+   valinnainen painikerivi (lomakkeelle vievä nappi ja sisäinen linkki).
+   Painike on joka osiossa, koska kävijä ei vieritä loppu-CTA:han asti. */
 export function TeemaOsio({
   id,
   rule,
@@ -9,6 +16,8 @@ export function TeemaOsio({
   title,
   intro,
   tumma = false,
+  cta,
+  linkki,
   children,
 }: {
   id?: string;
@@ -17,6 +26,8 @@ export function TeemaOsio({
   title: React.ReactNode;
   intro?: React.ReactNode;
   tumma?: boolean;
+  cta?: OsioCta;
+  linkki?: OsioLinkki;
   children: React.ReactNode;
 }) {
   return (
@@ -36,6 +47,30 @@ export function TeemaOsio({
           {intro && <p style={lead}>{intro}</p>}
         </div>
         {children}
+        {(cta || linkki) && (
+          <div
+            style={{
+              display: "flex",
+              flexWrap: "wrap",
+              alignItems: "center",
+              gap: "16px 32px",
+              marginTop: 40,
+            }}
+          >
+            {cta && (
+              <TarjousLink className="kt-btn-primary" tyyppi={cta.tyyppi}>
+                {cta.label}
+              </TarjousLink>
+            )}
+            {linkki && (
+              <p style={{ ...bodyText, color: "var(--kt-siniharmaa)" }}>
+                <Link href={linkki.href} className="kt-cta-link">
+                  {linkki.label}
+                </Link>
+              </p>
+            )}
+          </div>
+        )}
       </div>
     </section>
   );
