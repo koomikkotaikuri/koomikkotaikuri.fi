@@ -42,9 +42,6 @@ function ilmoitusTeksti(p: Tarjouspyynto): string {
     "",
     "Viesti:",
     p.viesti || "-",
-    "",
-    "--",
-    "Vastaa tähän viestiin, niin vastaus menee suoraan asiakkaalle.",
   ].join("\n");
 }
 
