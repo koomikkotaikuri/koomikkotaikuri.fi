@@ -16,7 +16,7 @@ export function Askeleet({
   cta?: OsioCta;
 }) {
   return (
-    <TeemaOsio rule={rule} ruleRight={`${askeleet.length} askelta`} title={title} tumma cta={cta}>
+    <TeemaOsio rule={rule} ruleRight={`${askeleet.length} askelta`} title={title} tumma cta={cta} ctaId="askeleet">
       <ol
         className="kt-m-stack"
         style={{

@@ -39,7 +39,7 @@ export function TapaKortit({
   lisalinkki?: OsioLinkki;
 }) {
   return (
-    <TeemaOsio id="tavat" rule={rule} ruleRight={ruleRight} title={title} intro={intro} cta={cta} linkki={lisalinkki}>
+    <TeemaOsio id="tavat" rule={rule} ruleRight={ruleRight} title={title} intro={intro} cta={cta} ctaId="tavat_osio" linkki={lisalinkki}>
       <div
         className="kt-m-stack"
         style={{ display: "grid", gridTemplateColumns: `repeat(${tavat.length}, 1fr)`, gap: 24 }}
@@ -75,7 +75,7 @@ export function TapaKortit({
               ))}
             </ul>
             <div style={{ marginTop: "auto", paddingTop: 8 }}>
-              <TarjousLink className={tapa.badge ? "kt-btn-primary" : "kt-btn-secondary"} tyyppi={tyyppi}>
+              <TarjousLink cta="tapa_kortti" className={tapa.badge ? "kt-btn-primary" : "kt-btn-secondary"} tyyppi={tyyppi}>
                 {tapa.cta ?? ctaLabel}
               </TarjousLink>
             </div>

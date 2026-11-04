@@ -1,4 +1,4 @@
-import { seurantaSallittu } from "@/lib/seuranta";
+import { lokitaEstetty, seurantaSallittu } from "@/lib/seuranta";
 
 export const META_PIXEL_ID = process.env.NEXT_PUBLIC_META_PIXEL_ID || "1091057302379873";
 
@@ -56,5 +56,7 @@ export function trackMeta(
 ) {
   if (seurantaSallittu() && typeof window.fbq === "function") {
     window.fbq("track", name, params, eventId ? { eventID: eventId } : undefined);
+  } else {
+    lokitaEstetty("Meta", name, params, eventId ? { eventID: eventId } : undefined);
   }
 }

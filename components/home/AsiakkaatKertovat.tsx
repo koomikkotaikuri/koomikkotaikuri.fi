@@ -341,7 +341,7 @@ export function AsiakkaatKertovat({ videoSrc = "/videos/korttipakka-animaatio.mp
               href="#tarjous"
               onClick={(e) => {
                 e.preventDefault();
-                openTarjous();
+                openTarjous({ lahde: "page_cta", cta: "asiakkaat_kertovat" });
               }}
               style={{
                 display: "inline-block",
@@ -528,7 +528,7 @@ export function AsiakkaatKertovat({ videoSrc = "/videos/korttipakka-animaatio.mp
           href="#tarjous"
           onClick={(e) => {
             e.preventDefault();
-            openTarjous();
+            openTarjous({ lahde: "page_cta", cta: "asiakkaat_kertovat" });
           }}
           className="kt-btn-secondary"
         >

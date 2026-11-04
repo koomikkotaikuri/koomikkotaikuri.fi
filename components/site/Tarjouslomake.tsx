@@ -6,14 +6,25 @@ import {
   TARJOUS_EVENT,
   TYYPIT,
   openTarjous,
-  type TarjousEsivalinta,
+  type TarjousAvausTieto,
   type TarjousTila,
 } from "@/lib/tarjous";
+import {
+  haeSaapuminen,
+  kirjaaSaapuminen,
+  liitaAlkupera,
+  type TarjousAvaus,
+} from "@/lib/alkupera";
 import { lahetaTarjouspyynto } from "@/lib/tarjouspyynto";
 import { trackEvent } from "@/lib/gtag";
 import { trackMeta } from "@/lib/metaPixel";
 
 const ALKUTILA: TarjousTila = { ok: false };
+
+/* Viimeisimmän avauksen tiedot. Jokainen avaus korvaa edellisen, joten
+   jos lomake suljetaan ja avataan uudelleen toisella sivulla tai toisesta
+   painikkeesta, lähetys kirjataan viimeisimmälle avaukselle. */
+type Avaus = TarjousAvaus & { sivu: string; liidi: string };
 
 const CURVE = "var(--kt-ease)";
 
@@ -90,26 +101,51 @@ export function Tarjouslomake() {
      kuin pending ehtii disabloida napin): muuten sekä sähköposti että
      Generate_lead lähtisivät kahdesti. */
   const lahetyksessaRef = useRef(false);
+  const avausRef = useRef<Avaus | null>(null);
   const [tila, formAction, pending] = useActionState(
     async (edellinen: TarjousTila, formData: FormData) => {
       if (lahetyksessaRef.current) return edellinen;
       lahetyksessaRef.current = true;
       try {
+        /* Avaus puuttuu vain, jos lomake on lähetetty ilman avausta (ei
+           pitäisi olla mahdollista); silloin luodaan tunniste tässä. */
+        const avaus: Avaus = avausRef.current ?? {
+          lahde: "page_cta",
+          cta: "tuntematon",
+          sivu: window.location.pathname,
+          liidi: crypto.randomUUID(),
+        };
+        const saapuminen = haeSaapuminen();
+        liitaAlkupera(formData, {
+          liidi: avaus.liidi,
+          avaus,
+          avaussivu: avaus.sivu,
+          lahetyssivu: window.location.pathname,
+          saapuminen,
+        });
         const tulos = await lahetaTarjouspyynto(edellinen, formData);
         /* Nimi täsmälleen "Generate_lead": GA4:n tärkeä tapahtuma ja Adsin
            konversio on luotu tällä nimellä, ja GA4 erottaa kirjainkoon.
-           Ei henkilötietoja parametreihin. transaction_id on lähetyskohtainen,
-           jotta mahdolliset tuplat tunnistaa ja Ads voi deduplikoida ne. */
+           Ei henkilötietoja parametreihin. transaction_id on avauskohtainen
+           liidin tunniste (sama kuin sähköpostin X-Lead-Id), jotta mahdolliset
+           tuplat tunnistaa ja Ads voi deduplikoida ne. */
         if (tulos.ok && !tulos.botti) {
-          const tid = crypto.randomUUID();
+          const tid = avaus.liidi;
           const tyyppi = String(formData.get("tyyppi") || "Ei valittu");
           trackEvent("Generate_lead", {
             form_name: "tarjouspyynto",
             tilaisuus_tyyppi: tyyppi,
             transaction_id: tid,
+            form_source: avaus.lahde,
+            cta_id: avaus.cta,
+            form_open_page: avaus.sivu,
+            landing_page: saapuminen?.laskeutumissivu || "(ei tiedossa)",
           });
           /* Sama tid Metan eventID:nä: mahdollinen Conversions API deduplikoituu sillä. */
           trackMeta("Lead", { content_name: "tarjouspyynto", content_category: tyyppi }, tid);
+          /* Uusi lähetys samasta avauksesta (ei pitäisi tapahtua, koska
+             kiitosnäkymä korvaa lomakkeen) saisi silti oman tunnisteen. */
+          avausRef.current = { ...avaus, liidi: crypto.randomUUID() };
         }
         return tulos;
       } finally {
@@ -140,8 +176,24 @@ export function Tarjouslomake() {
       originRef.current = { x: p.x - cx, y: p.y - cy };
       /* Esivalinta (esim. teemasivun "Pikkujoulut") vain, jos arvo on
          valikossa; muuten kenttä jää tyhjäksi kuten ennenkin. */
-      const esivalinta = (e as CustomEvent<TarjousEsivalinta> | undefined)?.detail;
+      const esivalinta = (e as CustomEvent<TarjousAvausTieto> | undefined)?.detail;
       const esiTyyppi = esivalinta?.tyyppi;
+      /* Avaussivu ja -tapa talteen jokaisella avauksella. Lomake ei ole
+         konversio, joten form_open on pelkkä tapahtuma (ei avaintapahtuma). */
+      const avaus: Avaus = {
+        lahde: esivalinta?.avaus?.lahde ?? "page_cta",
+        cta: esivalinta?.avaus?.cta ?? "tuntematon",
+        sivu: window.location.pathname,
+        liidi: crypto.randomUUID(),
+      };
+      avausRef.current = avaus;
+      trackEvent("form_open", {
+        form_name: "tarjouspyynto",
+        form_source: avaus.lahde,
+        cta_id: avaus.cta,
+        form_open_page: avaus.sivu,
+        landing_page: haeSaapuminen()?.laskeutumissivu || "(ei tiedossa)",
+      });
       setSent(false);
       setLupa(false);
       setNimi("");
@@ -158,13 +210,15 @@ export function Tarjouslomake() {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") setOpen(false);
     };
+    /* Juurilayoutin ensimmäinen efekti ajetaan laskeutumissivulla. */
+    kirjaaSaapuminen();
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("pointerdown", onPointer, true);
     window.addEventListener(TARJOUS_EVENT, onOpen);
     window.addEventListener("keydown", onKey);
     onScroll();
     /* Vanhat /ota-yhteytta ja /tarjouspyynto ohjautuvat osoitteeseen /#tarjous. */
-    if (window.location.hash === "#tarjous") openTarjous();
+    if (window.location.hash === "#tarjous") openTarjous({ lahde: "url_hash", cta: "hash" });
     return () => {
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("pointerdown", onPointer, true);
@@ -188,7 +242,7 @@ export function Tarjouslomake() {
         role="button"
         aria-label="Avaa yhteydenottolomake"
         className="kt-m-hide"
-        onClick={() => openTarjous()}
+        onClick={() => openTarjous({ lahde: "floating", cta: "yhteys_liuska" })}
         onMouseEnter={(e) => {
           e.currentTarget.style.borderColor = "var(--kt-messinki)";
         }}
@@ -275,7 +329,7 @@ export function Tarjouslomake() {
         }}
       >
         <button
-          onClick={() => openTarjous()}
+          onClick={() => openTarjous({ lahde: "floating", cta: "mobiili_alapalkki" })}
           className="kt-btn-primary"
           style={{ width: "100%", padding: "14px 24px" }}
         >

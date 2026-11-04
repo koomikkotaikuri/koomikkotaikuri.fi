@@ -95,7 +95,7 @@ export function TeemaHero({
           {sub}
         </p>
         <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: 20, marginTop: 8 }}>
-          <TarjousLink className="kt-btn-primary" tyyppi={tyyppi}>
+          <TarjousLink cta="teema_hero" className="kt-btn-primary" tyyppi={tyyppi}>
             {ctaLabel}
           </TarjousLink>
         </div>

@@ -21,7 +21,7 @@ export function TeemaVideo({
   cta?: OsioCta;
 }) {
   return (
-    <TeemaOsio rule={rule} title={title} intro={intro} tumma cta={cta}>
+    <TeemaOsio rule={rule} title={title} intro={intro} tumma cta={cta} ctaId="video">
       <div style={{ maxWidth: 1000, margin: "0 auto" }}>
         <VideoUpotus videoId={videoId} title={videoTitle} poster={poster} />
       </div>

@@ -46,7 +46,7 @@ export function KiireNauha({
         >
           {teksti}
         </p>
-        <TarjousLink className="kt-btn-secondary" tyyppi={tyyppi}>
+        <TarjousLink cta="kiire_nauha" className="kt-btn-secondary" tyyppi={tyyppi}>
           {ctaLabel}
         </TarjousLink>
       </div>

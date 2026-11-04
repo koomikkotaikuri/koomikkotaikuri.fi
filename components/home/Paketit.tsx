@@ -247,7 +247,7 @@ export function Paketit() {
                     onClick={(e) => {
                       if (pkg.scrollTarget) {
                         e.preventDefault();
-                        openTarjous();
+                        openTarjous({ lahde: "page_cta", cta: "paketit" });
                       }
                     }}
                     style={{
