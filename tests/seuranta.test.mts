@@ -241,3 +241,35 @@ describe("asetaSuostumus (suostumuslogiikka ennallaan)", () => {
     });
   }
 });
+
+describe("testausapu (kt-seuranta-loki)", () => {
+  function kaappaa(host: string, lippu: string | null) {
+    const ymp = selain(host);
+    if (lippu !== null) ymp.varasto.set("kt-seuranta-loki", lippu);
+    asennaGlobaalit(ymp);
+    const rivit: unknown[][] = [];
+    const alkuperainen = console.info;
+    console.info = (...a: unknown[]) => void rivit.push(a);
+    try {
+      trackEvent("Generate_lead", { transaction_id: "abc" });
+      trackMeta("Lead", {}, "abc");
+    } finally {
+      console.info = alkuperainen;
+    }
+    return rivit;
+  }
+
+  it("tuotannossa ei tulosta mitään, vaikka lippu olisi päällä", () => {
+    assert.deepEqual(kaappaa(TUOTANTOHOST, "1"), []);
+  });
+
+  it("muualla ei tulosta ilman lippua", () => {
+    assert.deepEqual(kaappaa("localhost", null), []);
+  });
+
+  it("muualla lipun kanssa tulostaa estetyt kutsut", () => {
+    const rivit = kaappaa("localhost", "1");
+    assert.equal(rivit.length, 2);
+    assert.match(String(rivit[0][0]), /GA4 – ei lähetetty/);
+  });
+});

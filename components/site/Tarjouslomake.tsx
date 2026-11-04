@@ -17,6 +17,7 @@ import {
 } from "@/lib/alkupera";
 import { lahetaTarjouspyynto } from "@/lib/tarjouspyynto";
 import { trackEvent } from "@/lib/gtag";
+import { useValintaSailyy } from "@/lib/lomakeValinta";
 import { trackMeta } from "@/lib/metaPixel";
 
 const ALKUTILA: TarjousTila = { ok: false };
@@ -139,7 +140,7 @@ export function Tarjouslomake() {
             form_source: avaus.lahde,
             cta_id: avaus.cta,
             form_open_page: avaus.sivu,
-            landing_page: saapuminen?.laskeutumissivu || "(ei tiedossa)",
+            form_landing_page: saapuminen?.laskeutumissivu || "(ei tiedossa)",
           });
           /* Sama tid Metan eventID:nä: mahdollinen Conversions API deduplikoituu sillä. */
           trackMeta("Lead", { content_name: "tarjouspyynto", content_category: tyyppi }, tid);
@@ -154,6 +155,10 @@ export function Tarjouslomake() {
     },
     ALKUTILA
   );
+  /* Pitää näkyvän tyyppivalinnan samana kuin lähetettävä arvo myös
+     epäonnistuneen lähetyksen jälkeen (ks. lib/lomakeValinta.ts). */
+  const tyyppiRef = useRef<HTMLSelectElement>(null);
+  useValintaSailyy(tyyppiRef, tyyppi, tila);
   const [tabVisible, setTabVisible] = useState(false);
   const originRef = useRef({ x: 0, y: 0 });
   const pointerRef = useRef<{ x: number; y: number } | null>(null);
@@ -192,7 +197,7 @@ export function Tarjouslomake() {
         form_source: avaus.lahde,
         cta_id: avaus.cta,
         form_open_page: avaus.sivu,
-        landing_page: haeSaapuminen()?.laskeutumissivu || "(ei tiedossa)",
+        form_landing_page: haeSaapuminen()?.laskeutumissivu || "(ei tiedossa)",
       });
       setSent(false);
       setLupa(false);
@@ -549,6 +554,7 @@ export function Tarjouslomake() {
                       <Field label="Tilaisuuden tyyppi">
                         <select
                           name="tyyppi"
+                          ref={tyyppiRef}
                           value={tyyppi}
                           onChange={(e) => setTyyppi(e.target.value)}
                           style={{ ...fieldStyle, cursor: "pointer" }}
