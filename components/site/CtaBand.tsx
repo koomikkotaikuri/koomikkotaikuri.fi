@@ -76,6 +76,7 @@ export function CtaBand({
           note="100 % TYYTYVÄISYYSTAKUU — JOS ET OLE TYYTYVÄINEN, LASKUA EI TULE"
           width="min(420px, 100%)"
           tyyppi={tyyppi}
+          cta="cta_band"
         />
       </div>
     </section>

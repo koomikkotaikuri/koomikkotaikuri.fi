@@ -1,4 +1,5 @@
 import { Resend } from "resend";
+import { alkuperaOtsakkeet, type Alkupera } from "./alkupera";
 
 export type Tarjouspyynto = {
   nimi: string;
@@ -66,24 +67,39 @@ function kuittausTeksti(p: Tarjouspyynto): string {
   ].join("\n");
 }
 
-export async function lahetaIlmoitus(p: Tarjouspyynto): Promise<void> {
-  const { error } = await asiakas().emails.send({
+/* Ilmoituksen Resend-payload. Alkuperätiedot (lib/alkupera.ts) menevät
+   VAIN X-Lead-*-otsakkeisiin: runko ja otsikko pysyvät ennallaan, koska ne
+   lainautuvat asiakkaalle lähtevään vastaukseen. Gmailissa otsakkeet näkyvät
+   kohdasta "Näytä alkuperäinen". */
+export function ilmoitusViesti(p: Tarjouspyynto, alkupera?: Alkupera) {
+  const headers = alkupera ? alkuperaOtsakkeet(alkupera) : {};
+  return {
     from: lahettaja(),
     to: VASTAANOTTAJA,
     replyTo: p.email,
     subject: `Tarjouspyyntö: ${p.tyyppi || "tilaisuus"} – ${p.nimi}`,
     text: ilmoitusTeksti(p),
-  });
-  if (error) throw new Error(`Resend hylkäsi ilmoituksen: ${error.message}`);
+    ...(Object.keys(headers).length > 0 ? { headers } : {}),
+  };
 }
 
-export async function lahetaKuittaus(p: Tarjouspyynto): Promise<void> {
-  const { error } = await asiakas().emails.send({
+/* Kuittaus asiakkaalle: ei koskaan alkuperätietoja eikä otsakkeita. */
+export function kuittausViesti(p: Tarjouspyynto) {
+  return {
     from: lahettaja(),
     to: p.email,
     replyTo: VASTAANOTTAJA,
     subject: "Kiitos tarjouspyynnöstä",
     text: kuittausTeksti(p),
-  });
+  };
+}
+
+export async function lahetaIlmoitus(p: Tarjouspyynto, alkupera?: Alkupera): Promise<void> {
+  const { error } = await asiakas().emails.send(ilmoitusViesti(p, alkupera));
+  if (error) throw new Error(`Resend hylkäsi ilmoituksen: ${error.message}`);
+}
+
+export async function lahetaKuittaus(p: Tarjouspyynto): Promise<void> {
+  const { error } = await asiakas().emails.send(kuittausViesti(p));
   if (error) throw new Error(`Resend hylkäsi kuittauksen: ${error.message}`);
 }

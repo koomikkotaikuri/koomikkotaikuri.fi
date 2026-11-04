@@ -100,7 +100,7 @@ export default function JpPirinen() {
               yksityisille asiakkaille. Jokaisella esiintymisellä on 100 % tyytyväisyystakuu.
             </p>
             <div style={{ display: "flex", flexWrap: "wrap", gap: 16, marginTop: 40 }}>
-              <TarjousLink className="kt-btn-primary">Pyydä tarjous</TarjousLink>
+              <TarjousLink cta="jp_esittely" className="kt-btn-primary">Pyydä tarjous</TarjousLink>
               <Link href="/media" className="kt-btn-secondary">
                 Mediapankki
               </Link>

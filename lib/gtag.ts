@@ -1,5 +1,5 @@
 import { lataaMetaPikseli } from "@/lib/metaPixel";
-import { TUOTANTOHOST, seurantaSallittu } from "@/lib/seuranta";
+import { TUOTANTOHOST, lokitaEstetty, seurantaSallittu } from "@/lib/seuranta";
 
 export const GA_ID = process.env.NEXT_PUBLIC_GA_ID || "G-1ZWV0T429H";
 
@@ -54,6 +54,8 @@ document.head.appendChild(gtagJs);
 export function trackEvent(name: string, params?: Record<string, unknown>) {
   if (seurantaSallittu() && typeof window.gtag === "function") {
     window.gtag("event", name, params);
+  } else {
+    lokitaEstetty("GA4", name, params);
   }
 }
 

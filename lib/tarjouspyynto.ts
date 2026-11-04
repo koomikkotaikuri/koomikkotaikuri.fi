@@ -7,6 +7,7 @@ import {
   lahetaKuittaus,
   type Tarjouspyynto,
 } from "./sahkoposti";
+import { validoiAlkupera } from "./alkupera";
 
 const YLEINEN_VIRHE =
   "Lähetys ei onnistunut. Kokeile hetken päästä uudelleen tai laita viesti suoraan osoitteeseen jp@koomikkotaikuri.fi.";
@@ -73,8 +74,12 @@ export async function lahetaTarjouspyynto(
     return { ok: false, viesti: tulos.viesti };
   }
 
+  /* Alkuperätiedot vain ilmoituksen teknisiin otsakkeisiin; virheelliset
+     kentät tyhjennetään, eivätkä ne koskaan estä lähetystä. */
+  const alkupera = validoiAlkupera(formData);
+
   try {
-    await lahetaIlmoitus(tulos.pyynto);
+    await lahetaIlmoitus(tulos.pyynto, alkupera);
   } catch (virhe) {
     console.error("Tarjouspyynnön ilmoitus epäonnistui:", virhe);
     return { ok: false, viesti: YLEINEN_VIRHE };

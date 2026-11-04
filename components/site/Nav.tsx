@@ -153,7 +153,7 @@ export function Nav() {
           </div>
         </div>
         <button
-          onClick={() => openTarjous()}
+          onClick={() => openTarjous({ lahde: "nav", cta: "nav_desktop" })}
           style={{
             fontFamily: "var(--kt-font-body)",
             fontWeight: 700,
@@ -255,7 +255,7 @@ export function Nav() {
           <button
             onClick={() => {
               setMenuOpen(false);
-              openTarjous();
+              openTarjous({ lahde: "nav", cta: "nav_mobile_menu" });
             }}
             className="kt-btn-primary"
             style={{ marginTop: 28, width: "100%" }}

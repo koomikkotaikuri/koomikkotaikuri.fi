@@ -1,3 +1,5 @@
+import type { TarjousAvaus } from "./alkupera";
+
 /* All "Pyydä tarjous" controls open the Tarjouslomake modal via this event. */
 export const TARJOUS_EVENT = "kt-open-tarjous";
 
@@ -15,9 +17,14 @@ export function asetaTarjousOletus(esivalinta: TarjousEsivalinta | null) {
   oletus = esivalinta;
 }
 
-export function openTarjous(esivalinta?: TarjousEsivalinta) {
-  const detail: TarjousEsivalinta = { ...oletus, ...esivalinta };
-  window.dispatchEvent(new CustomEvent<TarjousEsivalinta>(TARJOUS_EVENT, { detail }));
+/* Eventin detail: esivalinta + mistä lomake avattiin (lib/alkupera.ts). */
+export type TarjousAvausTieto = TarjousEsivalinta & { avaus: TarjousAvaus };
+
+/* Jokainen avauskohta kertoo lähteensä (avaus), jotta lomakkeen avaussivu
+   ja avaustapa saadaan GA4:ään ja ilmoitussähköpostin otsakkeisiin. */
+export function openTarjous(avaus: TarjousAvaus, esivalinta?: TarjousEsivalinta) {
+  const detail: TarjousAvausTieto = { ...oletus, ...esivalinta, avaus };
+  window.dispatchEvent(new CustomEvent<TarjousAvausTieto>(TARJOUS_EVENT, { detail }));
 }
 
 /* Tilaisuustyypit. Lomake renderöi nämä valikkoon ja Server Action

@@ -17,6 +17,7 @@ export function TeemaOsio({
   intro,
   tumma = false,
   cta,
+  ctaId = "teema_osio",
   linkki,
   children,
 }: {
@@ -27,6 +28,8 @@ export function TeemaOsio({
   intro?: React.ReactNode;
   tumma?: boolean;
   cta?: OsioCta;
+  /* Painikkeen tunniste seurantaa varten (ks. lib/alkupera.ts). */
+  ctaId?: string;
   linkki?: OsioLinkki;
   children: React.ReactNode;
 }) {
@@ -58,7 +61,7 @@ export function TeemaOsio({
             }}
           >
             {cta && (
-              <TarjousLink className="kt-btn-primary" tyyppi={cta.tyyppi}>
+              <TarjousLink cta={ctaId} className="kt-btn-primary" tyyppi={cta.tyyppi}>
                 {cta.label}
               </TarjousLink>
             )}

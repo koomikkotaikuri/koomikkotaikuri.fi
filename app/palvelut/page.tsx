@@ -188,7 +188,7 @@ export default function Palvelut() {
               <li style={bullet}>- Toimii 30 hengen kokouksesta tuhannen hengen saliin</li>
               <li style={bullet}>- Tarvitaan äänentoisto ja valaistu esiintymistila</li>
             </ul>
-            <TarjousLink className="kt-cta-link">Pyydä tarjous →</TarjousLink>
+            <TarjousLink cta="palvelut_lavalla" className="kt-cta-link">Pyydä tarjous →</TarjousLink>
           </div>
           <PakettiKuva src="/images/lava-esitys-yleiso-01.webp" alt="JP Pirinen lavalla, yleisö edessä" ratio="4 / 3" />
         </div>
@@ -227,7 +227,7 @@ export default function Palvelut() {
               <li style={bullet}>- Ei vaadi lavaa, tekniikkaa eikä ohjelmataukoa</li>
               <li style={bullet}>- Murtaa jään, kun vieraat eivät vielä tunne toisiaan</li>
             </ul>
-            <TarjousLink className="kt-cta-link">Pyydä tarjous →</TarjousLink>
+            <TarjousLink cta="palvelut_vieraiden_joukossa" className="kt-cta-link">Pyydä tarjous →</TarjousLink>
           </div>
         </div>
       </section>
@@ -264,7 +264,7 @@ export default function Palvelut() {
                 <li style={bullet}>- Yksi laskutus, yksi yhteyshenkilö, yksi aikataulu</li>
                 <li style={bullet}>- Yhdistettävissä juontoon koko illan kokonaisuudeksi</li>
               </ul>
-              <TarjousLink className="kt-btn-primary">Pyydä tarjous</TarjousLink>
+              <TarjousLink cta="palvelut_taysihoito" className="kt-btn-primary">Pyydä tarjous</TarjousLink>
             </div>
             <PakettiKuva
               src="/images/lava-esitys-yleiso-08.webp"
@@ -312,7 +312,7 @@ export default function Palvelut() {
               Juonnan illan alusta loppuun ja pidän aikataulun kasassa. Ohjelmanumerot, palkitsemiset ja
               tauot kulkevat sujuvasti, ja tunnelma pysyy yllä myös väliaikoina.
             </p>
-            <TarjousLink className="kt-cta-link" style={{ marginTop: "auto" }}>
+            <TarjousLink cta="palvelut_juontaja" className="kt-cta-link" style={{ marginTop: "auto" }}>
               Pyydä tarjous →
             </TarjousLink>
           </div>
@@ -338,7 +338,7 @@ export default function Palvelut() {
               Puheenvuoro tai workshop koulutuspäivään ja seminaariin. Aiheina esiintyminen, huomion
               ohjaaminen ja heittäytyminen. Harjoituksia ja nauruja, ei luentokalvoja.
             </p>
-            <TarjousLink className="kt-cta-link" style={{ marginTop: "auto" }}>
+            <TarjousLink cta="palvelut_paivaohjelma" className="kt-cta-link" style={{ marginTop: "auto" }}>
               Pyydä tarjous →
             </TarjousLink>
           </div>

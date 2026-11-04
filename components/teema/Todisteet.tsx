@@ -24,7 +24,7 @@ export function Todisteet({
   lisalinkki?: OsioLinkki;
 }) {
   return (
-    <TeemaOsio rule={rule} title={title} intro={intro} cta={cta} linkki={lisalinkki}>
+    <TeemaOsio rule={rule} title={title} intro={intro} cta={cta} ctaId="todisteet" linkki={lisalinkki}>
       <LogoWall logos={logot} scale={0.9} gap="32px 48px" />
       <div
         className="kt-m-stack"

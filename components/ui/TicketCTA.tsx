@@ -9,6 +9,7 @@ export function TicketCTA({
   onClick,
   width,
   tyyppi,
+  cta = "ticket_cta",
 }: {
   label?: string;
   note?: string;
@@ -16,12 +17,14 @@ export function TicketCTA({
   width?: string;
   /* Esivalittu tilaisuuden tyyppi lomakkeelle (ks. lib/tarjous.ts). */
   tyyppi?: string;
+  /* Painikkeen tunniste seurantaa varten (ks. lib/alkupera.ts). */
+  cta?: string;
 }) {
   const [hover, setHover] = useState(false);
   const brass = hover ? "var(--kt-action-primary-hover)" : "var(--kt-action-primary)";
   return (
     <button
-      onClick={onClick ?? (() => openTarjous(tyyppi ? { tyyppi } : undefined))}
+      onClick={onClick ?? (() => openTarjous({ lahde: "page_cta", cta }, tyyppi ? { tyyppi } : undefined))}
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
       style={{
