@@ -1,3 +1,5 @@
+import { seurantaSallittu } from "@/lib/seuranta";
+
 export const META_PIXEL_ID = process.env.NEXT_PUBLIC_META_PIXEL_ID || "1091057302379873";
 
 declare global {
@@ -18,7 +20,8 @@ declare global {
    edes haeta. Lippu estää tuplalatauksen. Noscript-kuvapikseli on jätetty
    pois, koska se ohittaisi suostumuksen. */
 export function lataaMetaPikseli() {
-  if (typeof window === "undefined" || window.__ktMetaLadattu) return;
+  /* Muualla kuin tuotantohostilla pikseliä ei ladata lainkaan (lib/seuranta.ts). */
+  if (!seurantaSallittu() || window.__ktMetaLadattu) return;
   window.__ktMetaLadattu = true;
 
   if (!window.fbq) {
@@ -51,7 +54,7 @@ export function trackMeta(
   params?: Record<string, unknown>,
   eventId?: string,
 ) {
-  if (typeof window !== "undefined" && typeof window.fbq === "function") {
+  if (seurantaSallittu() && typeof window.fbq === "function") {
     window.fbq("track", name, params, eventId ? { eventID: eventId } : undefined);
   }
 }

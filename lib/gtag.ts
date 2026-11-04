@@ -1,4 +1,5 @@
 import { lataaMetaPikseli } from "@/lib/metaPixel";
+import { TUOTANTOHOST, seurantaSallittu } from "@/lib/seuranta";
 
 export const GA_ID = process.env.NEXT_PUBLIC_GA_ID || "G-1ZWV0T429H";
 
@@ -21,10 +22,12 @@ declare global {
 /* Consent Mode v2: kaikki kielletty kunnes kävijä hyväksyy. Ajetaan
    inline-skriptinä ennen gtag.js:n latausta. Jos suostumus on annettu jo
    aiemmin, update ajetaan heti samassa skriptissä, jotta jo ensimmäinen
-   sivunkatselu lähtee evästeiden kanssa. */
+   sivunkatselu lähtee evästeiden kanssa. Muualla kuin tuotantohostilla
+   (ks. lib/seuranta.ts) skripti ei tee mitään eikä gtag.js:ää ladata. */
 export const GTAG_ALKU = `
+if (location.hostname === ${JSON.stringify(TUOTANTOHOST)}) {
 window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
+window.gtag = function gtag(){dataLayer.push(arguments);};
 gtag('consent', 'default', {
   ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied',
   analytics_storage: 'denied', wait_for_update: 500
@@ -41,10 +44,15 @@ try {
 } catch (e) {}
 gtag('js', new Date());
 gtag('config', '${GA_ID}');
+var gtagJs = document.createElement('script');
+gtagJs.async = true;
+gtagJs.src = 'https://www.googletagmanager.com/gtag/js?id=${GA_ID}';
+document.head.appendChild(gtagJs);
+}
 `;
 
 export function trackEvent(name: string, params?: Record<string, unknown>) {
-  if (typeof window !== "undefined" && typeof window.gtag === "function") {
+  if (seurantaSallittu() && typeof window.gtag === "function") {
     window.gtag("event", name, params);
   }
 }
