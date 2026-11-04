@@ -5,7 +5,7 @@ import { Tarjouslomake } from "@/components/site/Tarjouslomake";
 import { Evastebanneri } from "@/components/site/Evastebanneri";
 import { MetaPageView } from "@/components/site/MetaPageView";
 import { GA_ID, GTAG_ALKU } from "@/lib/gtag";
-import { pageMetadata, SITE_NAME, SITE_URL } from "@/lib/site-metadata";
+import { SITE_NAME, SITE_URL } from "@/lib/site-metadata";
 import "./globals.css";
 
 const anton = Anton({
@@ -30,12 +30,11 @@ export const metadata: Metadata = {
   // stay relative and the build fails
   metadataBase: new URL(SITE_URL),
   verification: { google: "K8himcPubuI_ob732kWRKItX_pcH51OdVyiyZcJf7Hw" },
-  ...pageMetadata({
-    title: `${SITE_NAME} — stand up ja taikuutta yritystilaisuuksiin`,
-    description:
-      "Stand up, taikuutta ja juontoa yritystilaisuuksiin. 28+ vuotta lavalla, 1500+ tapahtumaa.",
-    path: "/",
-  }),
+  // Only site-wide defaults here. Title, description and canonical belong to
+  // each page (the home page's are in app/page.tsx); anything set here would
+  // leak into routes without their own, such as the 404 and the thank-you page.
+  openGraph: { type: "website", locale: "fi_FI", siteName: SITE_NAME },
+  twitter: { card: "summary_large_image" },
 };
 
 export default function RootLayout({

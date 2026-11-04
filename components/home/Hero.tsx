@@ -79,37 +79,49 @@ export function Hero() {
           maxWidth: "56%",
         }}
       >
-        <div
-          style={{
-            fontFamily: "var(--kt-font-mono)",
-            fontSize: 12,
-            letterSpacing: "0.2em",
-            textTransform: "uppercase",
-            color: "var(--kt-siniharmaa)",
-            marginBottom: 28,
-          }}
-        >
-          Stand up · Taikuus · Yritystilaisuudet
-        </div>
-        <h1
-          style={{
-            margin: 0,
-            fontFamily: "var(--kt-font-display)",
-            fontWeight: 400,
-            textTransform: "uppercase",
-            color: "var(--kt-valo)",
-            fontSize: "min(clamp(52px, 7vw, 118px), 11.6vw)",
-            lineHeight: 1.08,
-            letterSpacing: "-0.01em",
-          }}
-        >
-          <span style={{ display: "block", whiteSpace: "nowrap" }}>
-            <span ref={markRowRef} style={{ display: "inline-block", whiteSpace: "nowrap" }}>
-              KOOMIKKO<span style={{ color: "var(--kt-messinki)" }}>TAIKURI</span>
+        {/* One H1 holding the offer line and the brand lockup, so its text reads
+            "Stand up · Taikuus · Yritystilaisuudet Koomikkotaikuri Taikurikoomikko".
+            The h1 itself is style-neutral (all: unset + display: block): the two
+            child blocks keep exactly the styles the former <div> and <h1> had, and
+            the global h1 rule in globals.css cannot reach them. The {" "} between
+            blocks renders nothing but keeps the words apart in the text content.
+            Lockup words are in normal case in the DOM; text-transform shows them
+            in capitals exactly as before. */}
+        <h1 style={{ all: "unset", display: "block" }}>
+          <span
+            style={{
+              display: "block",
+              fontFamily: "var(--kt-font-mono)",
+              fontSize: 12,
+              letterSpacing: "0.2em",
+              textTransform: "uppercase",
+              color: "var(--kt-siniharmaa)",
+              marginBottom: 28,
+            }}
+          >
+            Stand up · Taikuus · Yritystilaisuudet
+          </span>{" "}
+          <span
+            style={{
+              display: "block",
+              margin: 0,
+              fontFamily: "var(--kt-font-display)",
+              fontWeight: 400,
+              textTransform: "uppercase",
+              color: "var(--kt-valo)",
+              fontSize: "min(clamp(52px, 7vw, 118px), 11.6vw)",
+              lineHeight: 1.08,
+              letterSpacing: "-0.01em",
+            }}
+          >
+            <span style={{ display: "block", whiteSpace: "nowrap" }}>
+              <span ref={markRowRef} style={{ display: "inline-block", whiteSpace: "nowrap" }}>
+                Koomikko<span style={{ color: "var(--kt-messinki)" }}>taikuri</span>
+              </span>
+            </span>{" "}
+            <span style={{ display: "block", whiteSpace: "nowrap" }}>
+              <span style={{ color: "var(--kt-messinki)" }}>Taikuri</span>koomikko
             </span>
-          </span>
-          <span style={{ display: "block", whiteSpace: "nowrap" }}>
-            <span style={{ color: "var(--kt-messinki)" }}>TAIKURI</span>KOOMIKKO
           </span>
         </h1>
         <div style={{ lineHeight: 1.08, marginTop: "0.14em" }}>

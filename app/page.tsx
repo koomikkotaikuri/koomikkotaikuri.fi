@@ -1,3 +1,5 @@
+import type { Metadata } from "next";
+import { pageMetadata, SITE_NAME } from "@/lib/site-metadata";
 import { Nav } from "@/components/site/Nav";
 import { Hero } from "@/components/home/Hero";
 import { Marquee } from "@/components/ui/Marquee";
@@ -6,6 +8,13 @@ import { Paketit } from "@/components/home/Paketit";
 import { AsiakkaatKertovat } from "@/components/home/AsiakkaatKertovat";
 import { CtaBand } from "@/components/site/CtaBand";
 import { Footer } from "@/components/site/Footer";
+
+export const metadata: Metadata = pageMetadata({
+  title: `${SITE_NAME} — stand up ja taikuutta yritystilaisuuksiin`,
+  description:
+    "Stand up, taikuutta ja juontoa yritystilaisuuksiin. 28+ vuotta lavalla, 1500+ tapahtumaa.",
+  path: "/",
+});
 
 const marqueeItems = [
   "Kouvolan kaupunki", "NCC", "Orange Advertising", "HOAS", "Hämeen Kauppakamari", "Lemminkäinen",
