@@ -4,7 +4,7 @@ import Script from "next/script";
 import { Tarjouslomake } from "@/components/site/Tarjouslomake";
 import { Evastebanneri } from "@/components/site/Evastebanneri";
 import { MetaPageView } from "@/components/site/MetaPageView";
-import { GA_ID, GTAG_ALKU } from "@/lib/gtag";
+import { GTAG_ALKU } from "@/lib/gtag";
 import { SITE_NAME, SITE_URL } from "@/lib/site-metadata";
 import "./globals.css";
 
@@ -48,14 +48,11 @@ export default function RootLayout({
       className={`${anton.variable} ${archivo.variable} ${plexMono.variable}`}
     >
       <body>
-        {/* Consent Mode -oletukset ennen gtag.js:ää, ks. lib/gtag.ts */}
+        {/* Consent Mode -oletukset ja gtag.js:n lataus vain tuotantohostilla,
+            ks. lib/gtag.ts ja lib/seuranta.ts */}
         <Script id="gtag-alku" strategy="beforeInteractive">
           {GTAG_ALKU}
         </Script>
-        <Script
-          src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
-          strategy="afterInteractive"
-        />
         <MetaPageView />
         {children}
         <Tarjouslomake />
