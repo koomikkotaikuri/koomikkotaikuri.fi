@@ -12,6 +12,10 @@ import { validoiAlkupera } from "./alkupera";
 const YLEINEN_VIRHE =
   "Lähetys ei onnistunut. Kokeile hetken päästä uudelleen tai laita viesti suoraan osoitteeseen jp@koomikkotaikuri.fi.";
 
+/* Nopeampi täyttö kuin tämä on botin merkki. Automaattitäytölläkin ihmiseltä
+   menee lomakkeen avaamisesta lähetykseen useampi sekunti. */
+const MIN_TAYTTOAIKA_MS = 3000;
+
 function teksti(formData: FormData, kentta: string): string {
   const arvo = formData.get(kentta);
   return typeof arvo === "string" ? arvo.trim() : "";
@@ -63,18 +67,31 @@ export async function lahetaTarjouspyynto(
   _edellinen: TarjousTila,
   formData: FormData
 ): Promise<TarjousTila> {
-  /* Hunajapurkki: ihminen ei näe kenttää, botti täyttää sen.
-     Näytetään kiitos mutta ei lähetetä — botin ei tarvitse tietää. */
+  /* Hunajapurkki: ihminen ei näe kenttää, botti täyttää sen. Puhelimen
+     täyttöpalvelu tai salasanamanageri voi kuitenkin täyttää sen oikealle
+     ihmiselle nimestä riippumatta (todettu jppirinen.fi:ssä), joten
+     täytetty kenttä yksin ei riitä hylkäämiseen: hylätään vain, jos
+     lähetys tuli alle MIN_TAYTTOAIKA_MS:ssa avauksesta tai täyttöaika
+     puuttuu (suora POST ohi lomakkeen). Botille näytetään kiitos mutta
+     ei lähetetä — sen ei tarvitse tietää. */
   const tarkiste = teksti(formData, "kt_tarkiste");
   if (tarkiste !== "") {
-    /* Sähköposti lokiin, jotta autofillin takia hylätyn oikean asiakkaan
-       voi vielä tavoittaa. Ansakentän sisältöä ei kirjata. JSON.stringify
-       estää rivinvaihdoilla väärennetyt lokirivit. */
-    const email = teksti(formData, "email").slice(0, 254);
+    const aika = Number.parseInt(teksti(formData, "kt_aika"), 10);
+    const ihmisenTahti = Number.isFinite(aika) && aika >= MIN_TAYTTOAIKA_MS;
+    /* Lokiin vain pituus ja aika, ei ansakentän sisältöä. Hylätystä
+       myös sähköposti, jotta väärin hylätyn asiakkaan voi tavoittaa.
+       JSON.stringify estää rivinvaihdoilla väärennetyt lokirivit. */
+    const aikaTeksti = Number.isFinite(aika) ? `${aika} ms` : "puuttuu";
+    if (!ihmisenTahti) {
+      const email = teksti(formData, "email").slice(0, 254);
+      console.warn(
+        `Tarjouspyyntö hylätty hunajapurkin takia (kentän pituus ${tarkiste.length}, täyttöaika ${aikaTeksti}, email ${JSON.stringify(email)}).`
+      );
+      return { ok: true, botti: true };
+    }
     console.warn(
-      `Tarjouspyyntö hylätty hunajapurkin takia (kentän pituus ${tarkiste.length}, email ${JSON.stringify(email)}).`
+      `Hunajapurkki täytetty, mutta täyttöaika ${aikaTeksti} viittaa ihmiseen (automaattitäyttö?). Pyyntö käsitellään normaalisti.`
     );
-    return { ok: true, botti: true };
   }
 
   const tulos = validoi(formData);

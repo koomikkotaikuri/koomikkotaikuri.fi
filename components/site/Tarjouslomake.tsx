@@ -103,6 +103,10 @@ export function Tarjouslomake() {
      Generate_lead lähtisivät kahdesti. */
   const lahetyksessaRef = useRef(false);
   const avausRef = useRef<Avaus | null>(null);
+  /* Lomakkeen avaushetki (performance.now). Täyttöaika lähetetään
+     palvelimelle, joka erottaa sen avulla botin automaattitäytöstä:
+     puhelimen täyttöpalvelu voi täyttää hunajapurkin nimestä riippumatta. */
+  const avattuRef = useRef<number | null>(null);
   const [tila, formAction, pending] = useActionState(
     async (edellinen: TarjousTila, formData: FormData) => {
       if (lahetyksessaRef.current) return edellinen;
@@ -124,6 +128,12 @@ export function Tarjouslomake() {
           lahetyssivu: window.location.pathname,
           saapuminen,
         });
+        if (avattuRef.current !== null) {
+          formData.set(
+            "kt_aika",
+            String(Math.round(performance.now() - avattuRef.current))
+          );
+        }
         const tulos = await lahetaTarjouspyynto(edellinen, formData);
         /* Nimi täsmälleen "Generate_lead": GA4:n tärkeä tapahtuma ja Adsin
            konversio on luotu tällä nimellä, ja GA4 erottaa kirjainkoon.
@@ -192,6 +202,7 @@ export function Tarjouslomake() {
         liidi: crypto.randomUUID(),
       };
       avausRef.current = avaus;
+      avattuRef.current = performance.now();
       trackEvent("form_open", {
         form_name: "tarjouspyynto",
         form_source: avaus.lahde,
