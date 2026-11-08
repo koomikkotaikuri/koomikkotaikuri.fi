@@ -72,8 +72,10 @@ export async function lahetaTarjouspyynto(
      ihmiselle nimestä riippumatta (todettu jppirinen.fi:ssä), joten
      täytetty kenttä yksin ei riitä hylkäämiseen: hylätään vain, jos
      lähetys tuli alle MIN_TAYTTOAIKA_MS:ssa avauksesta tai täyttöaika
-     puuttuu (suora POST ohi lomakkeen). Botille näytetään kiitos mutta
-     ei lähetetä — sen ei tarvitse tietää. */
+     puuttuu (suora POST ohi lomakkeen). Hylkäyksestä näytetään virhe,
+     jossa on puhelin ja sähköposti (lomake renderöi sen botti-lipusta):
+     jos ansa joskus osuu ihmiseen, hän tietää ottaa yhteyttä suoraan
+     eikä luule pyynnön menneen perille. */
   const tarkiste = teksti(formData, "kt_tarkiste");
   if (tarkiste !== "") {
     const aika = Number.parseInt(teksti(formData, "kt_aika"), 10);
@@ -87,7 +89,7 @@ export async function lahetaTarjouspyynto(
       console.warn(
         `Tarjouspyyntö hylätty hunajapurkin takia (kentän pituus ${tarkiste.length}, täyttöaika ${aikaTeksti}, email ${JSON.stringify(email)}).`
       );
-      return { ok: true, botti: true };
+      return { ok: false, botti: true };
     }
     console.warn(
       `Hunajapurkki täytetty, mutta täyttöaika ${aikaTeksti} viittaa ihmiseen (automaattitäyttö?). Pyyntö käsitellään normaalisti.`

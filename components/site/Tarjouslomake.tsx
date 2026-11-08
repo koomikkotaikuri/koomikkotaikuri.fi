@@ -689,7 +689,24 @@ export function Tarjouslomake() {
                         color: "var(--kt-error)",
                       }}
                     >
-                      {!tila.ok && tila.viesti ? tila.viesti : ""}
+                      {!tila.ok && tila.botti ? (
+                        <>
+                          O-Ou, jokin meni pieleen (Luultavasti mun järjestelmässä).
+                          <br />
+                          Jos mahdollista soita suoraan mulle{" "}
+                          <a href="tel:+358445556669" style={{ color: "inherit", fontWeight: 600 }}>
+                            044 555 6669
+                          </a>{" "}
+                          tai ota yhteyttä sähköpostilla{" "}
+                          <a href="mailto:jp@koomikkotaikuri.fi" style={{ color: "inherit", fontWeight: 600 }}>
+                            jp@koomikkotaikuri.fi
+                          </a>
+                        </>
+                      ) : !tila.ok && tila.viesti ? (
+                        tila.viesti
+                      ) : (
+                        ""
+                      )}
                     </p>
                   </form>
                 </>
