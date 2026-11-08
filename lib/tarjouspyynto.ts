@@ -65,7 +65,15 @@ export async function lahetaTarjouspyynto(
 ): Promise<TarjousTila> {
   /* Hunajapurkki: ihminen ei näe kenttää, botti täyttää sen.
      Näytetään kiitos mutta ei lähetetä — botin ei tarvitse tietää. */
-  if (teksti(formData, "yritys") !== "") {
+  const tarkiste = teksti(formData, "kt_tarkiste");
+  if (tarkiste !== "") {
+    /* Sähköposti lokiin, jotta autofillin takia hylätyn oikean asiakkaan
+       voi vielä tavoittaa. Ansakentän sisältöä ei kirjata. JSON.stringify
+       estää rivinvaihdoilla väärennetyt lokirivit. */
+    const email = teksti(formData, "email").slice(0, 254);
+    console.warn(
+      `Tarjouspyyntö hylätty hunajapurkin takia (kentän pituus ${tarkiste.length}, email ${JSON.stringify(email)}).`
+    );
     return { ok: true, botti: true };
   }
 

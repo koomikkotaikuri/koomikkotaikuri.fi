@@ -499,7 +499,12 @@ export function Tarjouslomake() {
                     style={{ display: "flex", flexDirection: "column", gap: 22 }}
                   >
                     {/* Hunajapurkki. Ruudun ulkopuolella eikä display:none,
-                        koska osa boteista ohittaa piilotetut kentät. */}
+                        koska osa boteista ohittaa piilotetut kentät.
+                        Nimi ja otsikko eivät saa muistuttaa mitään oikeaa
+                        kenttää (yritys, nimi, osoite, puhelin, url…):
+                        selaimen automaattinen täyttö ohittaa usein
+                        autoComplete="off":n, täyttäisi kentän oikealle
+                        asiakkaalle ja pyyntö katoaisi hiljaa. */}
                     <div
                       aria-hidden
                       style={{
@@ -511,8 +516,17 @@ export function Tarjouslomake() {
                       }}
                     >
                       <label>
-                        Yritys
-                        <input name="yritys" tabIndex={-1} autoComplete="off" />
+                        Jätä tämä tyhjäksi
+                        <input
+                          name="kt_tarkiste"
+                          type="text"
+                          tabIndex={-1}
+                          autoComplete="off"
+                          data-1p-ignore
+                          data-lpignore="true"
+                          data-bwignore
+                          data-form-type="other"
+                        />
                       </label>
                     </div>
                     <div className="kt-m-stack" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20 }}>
