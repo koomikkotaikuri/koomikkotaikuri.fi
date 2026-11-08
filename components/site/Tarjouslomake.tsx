@@ -103,6 +103,10 @@ export function Tarjouslomake() {
      Generate_lead lähtisivät kahdesti. */
   const lahetyksessaRef = useRef(false);
   const avausRef = useRef<Avaus | null>(null);
+  /* Lomakkeen avaushetki (performance.now). Täyttöaika lähetetään
+     palvelimelle, joka erottaa sen avulla botin automaattitäytöstä:
+     puhelimen täyttöpalvelu voi täyttää hunajapurkin nimestä riippumatta. */
+  const avattuRef = useRef<number | null>(null);
   const [tila, formAction, pending] = useActionState(
     async (edellinen: TarjousTila, formData: FormData) => {
       if (lahetyksessaRef.current) return edellinen;
@@ -124,6 +128,12 @@ export function Tarjouslomake() {
           lahetyssivu: window.location.pathname,
           saapuminen,
         });
+        if (avattuRef.current !== null) {
+          formData.set(
+            "kt_aika",
+            String(Math.round(performance.now() - avattuRef.current))
+          );
+        }
         const tulos = await lahetaTarjouspyynto(edellinen, formData);
         /* Nimi täsmälleen "Generate_lead": GA4:n tärkeä tapahtuma ja Adsin
            konversio on luotu tällä nimellä, ja GA4 erottaa kirjainkoon.
@@ -192,6 +202,7 @@ export function Tarjouslomake() {
         liidi: crypto.randomUUID(),
       };
       avausRef.current = avaus;
+      avattuRef.current = performance.now();
       trackEvent("form_open", {
         form_name: "tarjouspyynto",
         form_source: avaus.lahde,
@@ -499,7 +510,12 @@ export function Tarjouslomake() {
                     style={{ display: "flex", flexDirection: "column", gap: 22 }}
                   >
                     {/* Hunajapurkki. Ruudun ulkopuolella eikä display:none,
-                        koska osa boteista ohittaa piilotetut kentät. */}
+                        koska osa boteista ohittaa piilotetut kentät.
+                        Nimi ja otsikko eivät saa muistuttaa mitään oikeaa
+                        kenttää (yritys, nimi, osoite, puhelin, url…):
+                        selaimen automaattinen täyttö ohittaa usein
+                        autoComplete="off":n, täyttäisi kentän oikealle
+                        asiakkaalle ja pyyntö katoaisi hiljaa. */}
                     <div
                       aria-hidden
                       style={{
@@ -511,8 +527,17 @@ export function Tarjouslomake() {
                       }}
                     >
                       <label>
-                        Yritys
-                        <input name="yritys" tabIndex={-1} autoComplete="off" />
+                        Jätä tämä tyhjäksi
+                        <input
+                          name="kt_tarkiste"
+                          type="text"
+                          tabIndex={-1}
+                          autoComplete="off"
+                          data-1p-ignore
+                          data-lpignore="true"
+                          data-bwignore
+                          data-form-type="other"
+                        />
                       </label>
                     </div>
                     <div className="kt-m-stack" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20 }}>
@@ -664,7 +689,24 @@ export function Tarjouslomake() {
                         color: "var(--kt-error)",
                       }}
                     >
-                      {!tila.ok && tila.viesti ? tila.viesti : ""}
+                      {!tila.ok && tila.botti ? (
+                        <>
+                          O-Ou, jokin meni pieleen (Luultavasti mun järjestelmässä).
+                          <br />
+                          Jos mahdollista soita suoraan mulle{" "}
+                          <a href="tel:+358445556669" style={{ color: "inherit", fontWeight: 600 }}>
+                            044 555 6669
+                          </a>{" "}
+                          tai ota yhteyttä sähköpostilla{" "}
+                          <a href="mailto:jp@koomikkotaikuri.fi" style={{ color: "inherit", fontWeight: 600 }}>
+                            jp@koomikkotaikuri.fi
+                          </a>
+                        </>
+                      ) : !tila.ok && tila.viesti ? (
+                        tila.viesti
+                      ) : (
+                        ""
+                      )}
                     </p>
                   </form>
                 </>

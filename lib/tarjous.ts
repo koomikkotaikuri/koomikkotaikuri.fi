@@ -38,6 +38,6 @@ export const TYYPIT = [
   "Muu",
 ];
 
-/* botti: hunajapurkki laukesi. Kiitos näytetään silti, mutta konversiota
-   ei kirjata. */
+/* botti: hunajapurkki laukesi. Pyyntöä ei lähetetty, ja lomake näyttää
+   virheen, jossa on suorat yhteystiedot (ei viesti-kenttää). */
 export type TarjousTila = { ok: boolean; viesti?: string; botti?: boolean };
