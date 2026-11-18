@@ -9,7 +9,7 @@ export const SUUNNAT = [
   {
     nimi: "Taikatyöpajat",
     teksti:
-      "Osallistujat pääsevät itse kokeilemaan ja opettelemaan taikuutta. Katsojista tulee tekijöitä, ja ensimmäinen onnistunut temppu ilahduttaa yllättävän paljon myös sitä kokouksen vakavinta osallistujaa.",
+      "Osallistujat pääsevät itse kokeilemaan ja opettelemaan taikuutta. Katsojista tulee hetkeksi tekijöitä, ja onnistumisen ilo jaetaan yhdessä.",
   },
   {
     nimi: "Ilmapallotyöpajat",
@@ -19,7 +19,7 @@ export const SUUNNAT = [
   {
     nimi: "Puheenvuorot",
     teksti:
-      "Erilaisiin tapahtumiin sopivia puheenvuoroja. Aiheina esimerkiksi esiintyminen, huomion ohjaaminen ja heittäytyminen. Harjoituksia ja naurua, ei luentokalvoja.",
+      "Erilaisiin tapahtumiin sopivia puheenvuoroja. Aiheina esimerkiksi itsensä haastaminen, oman potentiaalin löytäminen ja unelmien tavoittelu tai terveys.",
   },
 ];
 
@@ -34,13 +34,12 @@ export function TyopajatJaPuheenvuorot() {
           <div>
             <PalveluOtsikko nimi="Työpajat ja puheenvuorot" kuvaus="Osallistavaa tekemistä ja uusia näkökulmia" />
             <p style={leipa}>
-              Joskus parasta ohjelmaa ei ole katsoa, vaan tehdä itse. Työpajat ja puheenvuorot sopivat
+              Joskus paras ohjelma on sellainen, jossa pääsee itse tekemään. Työpajat ja puheenvuorot sopivat
               henkilöstöpäiviin, koulutuksiin ja tapahtumiin, joissa halutaan osallistua, oppia uutta tai katsoa
               tuttuja asioita hieman eri kulmasta.
             </p>
             <p style={{ ...leipa, marginBottom: 0 }}>
-              Ne eivät ole pelkkää päiväohjelmaa. Työpaja tai puheenvuoro toimii yhtä hyvin myös
-              iltatilaisuudessa.
+              Työpaja tai puheenvuoro sopii päivän ohjelmaan ja toimii yhtä hyvin myös iltatilaisuudessa.
             </p>
           </div>
           <Kuva

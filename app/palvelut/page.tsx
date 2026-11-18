@@ -28,7 +28,7 @@ const steps = [
   {
     nr: "01",
     title: "Kerro tilaisuudesta",
-    text: "Päivä, paikka, vieraiden määrä ja millainen ilta on tulossa. Valmista ohjelmatoivetta ei tarvita. Soitan usein perään, niin yksityiskohdat saadaan kuntoon yhdellä puhelulla.",
+    text: "Päivä, paikka, vieraiden määrä ja millainen ilta on tulossa. Ohjelmatoive voi olla vielä avoin. Soitan usein perään, niin yksityiskohdat saadaan kuntoon yhdellä puhelulla.",
   },
   {
     nr: "02",
@@ -73,8 +73,8 @@ export default function Palvelut() {
           yhteinen lavashow, taikuutta vieraiden joukossa, juontoa tai osallistavaa tekemistä.
         </p>
         <p style={{ ...leipa, maxWidth: 640, marginBottom: 0 }}>
-          Alla tarkemmin, mitä kaikkea voidaan toteuttaa. Sinun ei tarvitse päättää valmiiksi, mikä
-          vaihtoehto sopii. Kerro tilaisuudesta, niin mietitään yhdessä.
+          Alla tarkemmin, mitä kaikkea voidaan toteuttaa. Sopivan kokonaisuuden voimme miettiä yhdessä:
+          kerro tilaisuudesta, niin ehdotan, mikä toimisi teillä parhaiten.
         </p>
       </section>
 
@@ -95,15 +95,14 @@ export default function Palvelut() {
               samaan aikaan.
             </p>
             <p style={leipa}>
-              Kerron tarinoita omasta elämästäni, perheestäni ja vuosista esiintyjänä. Tarinoiden sisään
-              kietoutuu taikuutta ja tilanteita, jotka syntyvät yleisön kanssa siinä hetkessä. Kyse ei ole
-              vitseistä temppujen välissä. Komiikka ja taikuus ovat saman esityksen kaksi puolta, ja ne
-              tukevat toisiaan koko ajan.
+              Kerron tarinoita omasta elämästäni, perheestäni ja vuosista esiintyjänä. Omakohtaiset
+              tarinat, komiikka, taikuus ja yleisön kanssa siinä hetkessä syntyvät tilanteet kietoutuvat
+              yhdeksi esitykseksi, jossa nauru ja hämmästys kulkevat käsi kädessä.
             </p>
             <p style={leipa}>
               Hämmästyttäviä hetkiä tulee, mutta tärkeintä on, että yleisöllä on älyttömän hauskaa. Huumori
-              on hyväntuulista ja yleisöä kunnioittavaa. Ketään ei nolata, eikä naurua haeta kenenkään
-              kustannuksella. Lavalle pyydetystä vapaaehtoisesta tulee illan sankari, ei vitsin kohde.
+              on hyväntuulista ja yleisöä kunnioittavaa, eikä ketään nolata. Lavalle kutsutusta
+              vapaaehtoisesta tulee illan sankari. Huumorin terävin kärki osuu useimmiten taikuriin itseensä.
             </p>
             <p style={{ ...leipa, marginBottom: 28 }}>
               Esitys rakentuu omalle materiaalilleni, ja se sovitetaan aina tilaisuuden luonteeseen ja
@@ -196,9 +195,8 @@ export default function Palvelut() {
             <div>
               <h3 style={h3Tyyli}>Miltä se tuntuu vieraasta</h3>
               <p style={leipa}>
-                Ei tarvitse istua salissa eikä katsoa kaukaa. Kaikki tapahtuu puolen metrin päässä, joskus
-                omassa kädessä, ja silti jotain mahdotonta tapahtuu. Vieressä seisova kollega näkee saman, eikä
-                kumpikaan keksi selitystä.
+                Kaikki tapahtuu puolen metrin päässä, joskus vieraan omassa kädessä. Vieressä seisova kollega
+                näkee saman, ja kumpikin jää ihmettelemään, miten se oli mahdollista.
               </p>
               <p style={leipa}>
                 Siitä syntyy juuri se hetki, jota lähitaikuudelta haetaan: yhteistä ihmettelyä, naurua ja
@@ -218,7 +216,7 @@ export default function Palvelut() {
                     nimi: "Sopii",
                     arvo: "Vieraiden saapumiseen, cocktail-osuuteen, ruokailun ympärille, verkostoitumiseen ja messuosastolle.",
                   },
-                  { nimi: "Tekniikka", arvo: "Ei vaadi lavaa, tekniikkaa eikä ohjelmataukoa." },
+                  { nimi: "Tekniikka", arvo: "Onnistuu siellä, missä vieraat ovat, ilman lavaa, tekniikkaa tai ohjelmataukoa." },
                   {
                     nimi: "Yhdistä",
                     arvo: (
@@ -261,9 +259,9 @@ export default function Palvelut() {
               <PalveluOtsikko nimi="Täysihoito" kuvaus="Kaksi erilaista kokemusta samassa tilaisuudessa" />
               <div>
                 <p style={leipa}>
-                  Täysihoidossa samaan tilaisuuteen tulevat sekä lavashow että lähitaikuus. Kyse ei ole kahdesta
-                  irrallisesta ohjelmanumerosta, vaan kokonaisuudesta, jossa kaksi erilaista esiintymistapaa
-                  täydentävät toisiaan ja kantavat tunnelmaa koko tilaisuuden ajan.
+                  Täysihoidossa samaan tilaisuuteen tulevat sekä lavashow että lähitaikuus. Kaksi erilaista
+                  esiintymistapaa täydentävät toisiaan ja muodostavat kokonaisuuden, joka kantaa tunnelmaa koko
+                  tilaisuuden ajan.
                 </p>
               </div>
             </div>
@@ -303,8 +301,8 @@ export default function Palvelut() {
                 <h3 style={h3Tyyli}>Ohjelmaa illan eri vaiheisiin</h3>
                 <p style={{ ...leipa, fontSize: 16 }}>
                   Lähitaikuutta voi sijoittaa vieraiden saapumiseen, seurusteluhetkiin tai illan rauhallisempiin
-                  kohtiin. Turha odottelu vähenee ja tunnelma pysyy yllä silloinkin, kun lavalla ei tapahdu
-                  mitään. Tarkoitus ei ole täyttää jokaista minuuttia, vaan elää tilaisuuden mukana.
+                  kohtiin. Turha odottelu vähenee ja tunnelma pysyy yllä myös lavaohjelman ulkopuolella.
+                  Viihde joustaa ja elää tilaisuuden mukana.
                 </p>
               </div>
               <div>
@@ -403,8 +401,8 @@ export default function Palvelut() {
               laajuudessa, jolloin järjestäjäkin ehtii keskittyä vieraisiin.
             </p>
             <p style={{ ...leipa, marginBottom: 32 }}>
-              Juontaminen ei siis ole pelkkää ohjelmanumeroiden esittelyä mikrofonin kanssa. Juontaja pitää
-              huolen tilaisuuden rytmistä ja siitä, että ilta pysyy hallinnassa. Usein toimin samalla osittain
+              Ohjelmanumeroiden esittelyn lisäksi juontaja pitää huolen tilaisuuden rytmistä ja siitä, että
+              ilta pysyy hallinnassa. Usein toimin samalla osittain
               myös tapahtuman kulkua koordinoivassa roolissa.
             </p>
 

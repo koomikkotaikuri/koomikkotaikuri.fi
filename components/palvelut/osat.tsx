@@ -12,10 +12,14 @@ export const leipa: React.CSSProperties = {
   textWrap: "pretty",
 };
 
+/* Display-fontin oletusvälistys on tiukka (-0.01em, ks. globals.css). Pienissä
+   palvelusivun otsikoissa kirjaimet painuivat kapealla näytöllä lähes kiinni
+   toisiinsa, joten niille annetaan hieman ilmaa. */
 export const h3Tyyli: React.CSSProperties = {
   margin: "0 0 12px 0",
   fontSize: 22,
   lineHeight: 1.25,
+  letterSpacing: "0.015em",
 };
 
 /* Palvelun nimi ja sen alla kuvaava rivi samassa otsikossa: nimi on se,
@@ -31,6 +35,7 @@ export function PalveluOtsikko({ nimi, kuvaus }: { nimi: string; kuvaus: string 
           marginTop: 12,
           fontSize: "clamp(17px, 1.7vw, 23px)",
           lineHeight: 1.3,
+          letterSpacing: "0.025em",
           color: "var(--kt-messinki)",
         }}
       >
