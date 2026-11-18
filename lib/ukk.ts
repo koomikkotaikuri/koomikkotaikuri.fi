@@ -74,11 +74,13 @@ export const ukkItems: UkkItem[] = [
   },
 ];
 
-/* The five shown on the Palvelut page ("Ennen kuin kysyt hintaa"). */
+/* The five shown on the Palvelut page ("Ennen kuin kysyt hintaa"). Kesto ja
+   tilaamisen vaiheet kerrotaan jo palveluiden ja "Näin tilaus etenee" -osion
+   yhteydessä, joten niiden tilalla ovat tarjouspyynnön sisältö ja varausaika. */
 export const palvelutUkkTitles = [
   "Millaisiin tilaisuuksiin esiintyminen sopii?",
-  "Kuinka pitkä esitys on?",
-  "Miten voi tilata esiintymään tilaisuuteemme?",
+  "Mitä tarjouspyyntöön kannattaa sisällyttää?",
+  "Milloin esiintyjä kannattaa varata?",
   "Mitä esiintyminen maksaa ja miten se maksetaan?",
   "Peruutukset: mitä jos joudun perumaan? Entä jos sinä peruut?",
 ];
