@@ -80,7 +80,7 @@ export function Hero() {
         }}
       >
         {/* One H1 holding the offer line and the brand lockup, so its text reads
-            "Stand up · Taikuus · Yritystilaisuudet Koomikkotaikuri Taikurikoomikko".
+            "Komiikkaa · Taikuutta · Yritystilaisuuksiin Koomikkotaikuri Taikurikoomikko".
             The h1 itself is style-neutral (all: unset + display: block): the two
             child blocks keep exactly the styles the former <div> and <h1> had, and
             the global h1 rule in globals.css cannot reach them. The {" "} between
@@ -99,7 +99,7 @@ export function Hero() {
               marginBottom: 28,
             }}
           >
-            Stand up · Taikuus · Yritystilaisuudet
+            Komiikkaa · Taikuutta · Yritystilaisuuksiin
           </span>{" "}
           <span
             style={{
@@ -141,7 +141,20 @@ export function Hero() {
             KAKSI SUUNTAA, <span style={{ color: "var(--kt-messinki)" }}>YKSI KOKONAISUUS</span>
           </span>
         </div>
-        <div style={{ display: "flex", flexWrap: "wrap", gap: 16, marginTop: 48 }}>
+        <p
+          style={{
+            margin: "28px 0 0 0",
+            maxWidth: 520,
+            fontFamily: "var(--kt-font-body)",
+            fontSize: 17,
+            lineHeight: 1.6,
+            color: "var(--kt-valo-himmea)",
+          }}
+        >
+          Ei pelkkää taikuutta. Ei pelkkää komiikkaa. Uskomattomia tilanteita ja ennen kaikkea{" "}
+          <span style={{ color: "var(--kt-valo)" }}>älyttömän hauska esitys.</span>
+        </p>
+        <div style={{ display: "flex", flexWrap: "wrap", gap: 16, marginTop: 36 }}>
           <button
             onClick={() => setVideoOpen(true)}
             style={{

@@ -10,9 +10,9 @@ import { CtaBand } from "@/components/site/CtaBand";
 import { Footer } from "@/components/site/Footer";
 
 export const metadata: Metadata = pageMetadata({
-  title: `${SITE_NAME} — stand up ja taikuutta yritystilaisuuksiin`,
+  title: `${SITE_NAME} | Komiikkaa ja taikuutta yritystilaisuuksiin`,
   description:
-    "Stand up, taikuutta ja juontoa yritystilaisuuksiin. 28+ vuotta lavalla, 1500+ tapahtumaa.",
+    "Koomikkotaikuri JP Pirinen tuo yritysjuhliin, pikkujouluihin ja asiakastilaisuuksiin omaperäistä komiikkaa, taikuutta ja ennen kaikkea naurua.",
   path: "/",
 });
 
