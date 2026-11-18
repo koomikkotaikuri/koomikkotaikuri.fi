@@ -8,9 +8,8 @@ const stats = [
   { value: "1500+", label: "tapahtumaa" },
 ];
 
+// Yritysostajaa vakuuttavat palautteet ensin; artistien kommentit perässä.
 const testimonials = [
-  { quote: "JP Pirinen taikoo v*ttu oikeesti.", name: "Kimmo Laiho aka Elastinen" },
-  { quote: 'Mitähän helv***tiä just tapahtui? Eihän toi oo mahdollista', name: 'Jari "Jaajo" Linnonmaa' },
   {
     quote: "Olit aivan mieletön. Jos joskus sai nauraa, niin nyt.",
     name: "Päivi Tick",
@@ -21,6 +20,8 @@ const testimonials = [
     name: "Tomi Karvinen",
     org: "Toimistosihteeri, Hämeen Kauppakamari",
   },
+  { quote: "JP Pirinen taikoo v*ttu oikeesti.", name: "Kimmo Laiho aka Elastinen" },
+  { quote: 'Mitähän helv***tiä just tapahtui? Eihän toi oo mahdollista', name: 'Jari "Jaajo" Linnonmaa' },
 ];
 
 export function Naytot() {

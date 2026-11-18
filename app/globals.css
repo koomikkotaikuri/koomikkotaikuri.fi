@@ -367,6 +367,45 @@ html {
   }
 }
 
+/* Touch screens have no hover, so service cards show the long description
+   straight away. The card stacks: the photo fills a fixed-height top area on
+   its own, and the text sits below it on the panel colour, with a short fade
+   where the two meet. The card grows with its text, so nothing is clipped and
+   the text never sits on top of faces. Desktop (hover) is untouched. */
+@media (hover: none) {
+  .kt-pkg-card {
+    --kt-pkg-media-h: 340px;
+    height: auto !important;
+  }
+  .kt-pkg-card-wide {
+    --kt-pkg-media-h: 230px;
+  }
+  .kt-pkg-media {
+    height: var(--kt-pkg-media-h) !important;
+    bottom: auto !important;
+  }
+  .kt-pkg-grad,
+  .kt-pkg-shade,
+  .kt-pkg-short {
+    display: none !important;
+  }
+  .kt-pkg-text {
+    position: relative !important;
+    margin-top: calc(var(--kt-pkg-media-h) - 64px);
+    padding-top: 64px !important;
+    background: linear-gradient(
+      180deg,
+      rgba(30, 40, 56, 0) 0,
+      var(--kt-paneeli) 64px
+    );
+  }
+  .kt-pkg-more {
+    max-height: none !important;
+    opacity: 1 !important;
+    margin-top: 12px !important;
+  }
+}
+
 /* ---- Mobile layout overrides ----
    Inline styles carry the desktop values; these classes override them
    below the breakpoint, hence the !important. */
